@@ -40,7 +40,7 @@ function ReceiptRow({ id, label, value, pt, valueW, primary }) {
 }
 
 // The ticket card + payment receipt, shared by "Your ticket" and the all-booked View Prebooking (68:17031).
-function TicketCard({ expanded, onToggle, paid, seatRows, className = "pl-[30.024px] pr-[29.371px]", receiptBg = "bg-[var(--surface\\/subtle,#f4f4f4)]", cutouts = [imgCutoutEdge, imgCutoutEdge1] }) {
+function TicketCard({ expanded, onToggle, paid, seatRows, className = "pl-[30.024px] pr-[29.371px]", receiptBg = "bg-[var(--surface\\/subtle,#f4f4f4)]", cutouts = [imgCutoutEdge, imgCutoutEdge1], hideToggle = false }) {
   const [showSeats, setShowSeats] = React.useState(true);
   return (
     <div className={`content-stretch flex flex-col items-start relative shrink-0 w-full ${className}`} data-node-id="45:12274" data-name="Ticket content">
@@ -96,7 +96,7 @@ function TicketCard({ expanded, onToggle, paid, seatRows, className = "pl-[30.02
                     </div>
                   </div>
                 </div>
-                <div className="content-stretch flex flex-col items-start pt-[13.344px] px-[16.68px] relative shrink-0 w-full" data-node-id="45:12297" data-name="Toggle ticket details">
+                <div className={`content-stretch flex flex-col items-start pt-[13.344px] px-[16.68px] relative shrink-0 w-full ${hideToggle ? "invisible" : ""}`} data-node-id="45:12297" data-name="Toggle ticket details">
                   <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col h-[30.024px] items-start pb-[8.684px] pt-[8.34px] relative rounded-[15.012px] shrink-0 w-full cursor-pointer" data-node-id="45:12298" data-name="Hide details" onClick={onToggle}>
                     <div className="content-stretch flex flex-col items-start pl-[25.021px] pr-[25.02px] relative shrink-0 w-full" data-node-id="45:12299" data-name="Tap to hide details flow">
                       <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.842px] text-[color:var(--text\/secondary,#6b6b6b)] text-center w-full" data-node-id="45:12300" style={{ fontVariationSettings: '"wdth" 100' }}>

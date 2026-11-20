@@ -114,7 +114,6 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
   );
   // Every secured seat paid for: the seat map gives way to the group's ticket (Figma 68:17031).
   const allBooked = variant === "paid" && !repick && countSeats(seats, "fy") === 0 && countSeats(seats, "r") > 0;
-  const [ticketOpen, setTicketOpen] = React.useState(true);
   const NAMES = { Y: "Yuva", S: "Shwas", A: "Aadi", R: "Rishi", P: "Pranjal" };
   const mine = window.paySelection ? window.paySelection.seats : [];
   const bookedRows = heldList.map((id) => ({
@@ -187,7 +186,7 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
           </div>
         </div>
         {allBooked ? (
-          <TicketCard expanded={ticketOpen} onToggle={() => setTicketOpen((v) => !v)} paid={heldList} seatRows={bookedRows} className={`${BLUE} px-[36px] py-[12px]`} receiptBg="bg-[var(--surface\\/white,white)]" cutouts={["assets/AllBooked/3f234.svg", "assets/AllBooked/05d99.svg"]} />
+          <TicketCard expanded hideToggle paid={heldList} seatRows={bookedRows} className={`${BLUE} px-[36px] py-[12px]`} receiptBg="bg-white" cutouts={["assets/AllBooked/3f234-blue.svg", "assets/AllBooked/05d99-blue.svg"]} />
         ) : (<>
         <div className="content-stretch flex items-center justify-between pt-[12px] px-[16px] relative shrink-0 w-full h-[32px]" data-node-id="45:10669">
           <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="45:10668">
