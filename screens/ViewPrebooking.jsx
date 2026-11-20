@@ -147,84 +147,86 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
           </div>
         </div>
       </div>
-      <GroupHeader w="w-full" compact onMembers={() => go(variant === "paid" ? "paidSheet" : "memberSheet")} />
-      <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start pb-[12px] px-[16px] relative shrink-0 w-full" data-node-id="48:551" data-name="Showtime">
-        <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start overflow-clip relative rounded-[8.34px] shrink-0 w-full" data-node-id="45:10645" data-name="Movie and show details">
-          <div className="content-stretch flex flex-col items-start pb-[11.71px] pl-[16.68px] pr-[15.012px] pt-[10.008px] relative shrink-0 w-full" data-node-id="45:10646" data-name="Movie and session">
-            <div className="[word-break:break-word] content-stretch flex items-start justify-between leading-[1.25] relative shrink-0 text-[16.68px] text-[color:var(--text\/primary,#1a1a1a)] w-full" data-node-id="45:10647" data-name="Movie title and ticket count">
-              <p className="flex-[1_0_0] font-['Roboto'] font-medium min-w-px relative" data-node-id="45:10648" style={{ fontVariationSettings: '"wdth" 100' }}>
-                Wildwood
-              </p>
-              <p className="font-['Roboto'] font-normal relative shrink-0 whitespace-nowrap" data-node-id="45:10649" style={{ fontVariationSettings: '"wdth" 100' }}>
-                5
-              </p>
-            </div>
-            <div className="content-stretch flex items-start pt-[0.684px] relative shrink-0 w-full" data-node-id="45:10650" data-name="Session and mobile ticket">
-              <p className="[word-break:break-word] flex-[1_0_0] font-['Roboto'] font-medium leading-[1.25] min-w-px relative text-[13.344px] text-[color:var(--text\/primary,#1a1a1a)]" data-node-id="45:10651" style={{ fontVariationSettings: '"wdth" 100' }}>
-                Fri, 20 Nov, 2026 | 09:00 AM
-              </p>
-            </div>
-            <div className="content-stretch flex flex-col items-start pt-[0.01px] relative shrink-0 w-full" data-node-id="45:10652" data-name="Movie metadata">
-              <div className="[word-break:break-word] font-['Roboto'] font-normal leading-[0] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] w-full" data-node-id="45:10653" style={{ fontVariationSettings: '"wdth" 100' }}>
-                <p className="leading-[1.25] mb-0">English (2D)</p>
-                <p className="leading-[1.25] mb-0">{heldList.join(", ")}</p>
-                <p className="leading-[1.25]">INOX: R-City, Ghatkopar (INSIGNIA 8)</p>
+      <div className="content-stretch flex flex-col flex-[1_0_0] items-start min-h-0 overflow-y-auto overflow-x-hidden relative w-full scroll-body" data-name="Scrollable body">
+        <GroupHeader w="w-full" compact onMembers={() => go(variant === "paid" ? "paidSheet" : "memberSheet")} />
+        <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start pb-[12px] px-[16px] relative shrink-0 w-full" data-node-id="48:551" data-name="Showtime">
+          <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start overflow-clip relative rounded-[8.34px] shrink-0 w-full" data-node-id="45:10645" data-name="Movie and show details">
+            <div className="content-stretch flex flex-col items-start pb-[11.71px] pl-[16.68px] pr-[15.012px] pt-[10.008px] relative shrink-0 w-full" data-node-id="45:10646" data-name="Movie and session">
+              <div className="[word-break:break-word] content-stretch flex items-start justify-between leading-[1.25] relative shrink-0 text-[16.68px] text-[color:var(--text\/primary,#1a1a1a)] w-full" data-node-id="45:10647" data-name="Movie title and ticket count">
+                <p className="flex-[1_0_0] font-['Roboto'] font-medium min-w-px relative" data-node-id="45:10648" style={{ fontVariationSettings: '"wdth" 100' }}>
+                  Wildwood
+                </p>
+                <p className="font-['Roboto'] font-normal relative shrink-0 whitespace-nowrap" data-node-id="45:10649" style={{ fontVariationSettings: '"wdth" 100' }}>
+                  5
+                </p>
+              </div>
+              <div className="content-stretch flex items-start pt-[0.684px] relative shrink-0 w-full" data-node-id="45:10650" data-name="Session and mobile ticket">
+                <p className="[word-break:break-word] flex-[1_0_0] font-['Roboto'] font-medium leading-[1.25] min-w-px relative text-[13.344px] text-[color:var(--text\/primary,#1a1a1a)]" data-node-id="45:10651" style={{ fontVariationSettings: '"wdth" 100' }}>
+                  Fri, 20 Nov, 2026 | 09:00 AM
+                </p>
+              </div>
+              <div className="content-stretch flex flex-col items-start pt-[0.01px] relative shrink-0 w-full" data-node-id="45:10652" data-name="Movie metadata">
+                <div className="[word-break:break-word] font-['Roboto'] font-normal leading-[0] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] w-full" data-node-id="45:10653" style={{ fontVariationSettings: '"wdth" 100' }}>
+                  <p className="leading-[1.25] mb-0">English (2D)</p>
+                  <p className="leading-[1.25] mb-0">{heldList.join(", ")}</p>
+                  <p className="leading-[1.25]">INOX: R-City, Ghatkopar (INSIGNIA 8)</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="content-stretch flex items-center justify-between pt-[12px] px-[16px] relative shrink-0 w-full h-[32px]" data-node-id="45:10669">
-        <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="45:10668">
-          Select seats to pay for.
-        </p>
-        <div className="content-stretch flex gap-[4px] items-center relative shrink-0 cursor-pointer" data-node-id="45:10670" onClick={repick ? confirmRepick : startRepick}>
-          <p className={`[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[12px] ${repick ? "text-[color:var(--status\\/green,#1d9a4c)]" : "text-[color:var(--text\\/secondary,#6b6b6b)]"} whitespace-nowrap`} data-node-id="45:10671">
-            {repick ? "Confirm these seats" : "Repick Seats"}
+        <div className="content-stretch flex items-center justify-between pt-[12px] px-[16px] relative shrink-0 w-full h-[32px]" data-node-id="45:10669">
+          <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="45:10668">
+            Select seats to pay for.
           </p>
-          <div className="relative shrink-0 size-[16px]" data-node-id="45:10672" data-name={repick ? "check" : "edit-01"}>
-            <img alt="" className="absolute block inset-0 max-w-none size-full" src={repick ? "assets/ViewPrebooking/check.svg" : imgEdit01} />
+          <div className="content-stretch flex gap-[4px] items-center relative shrink-0 cursor-pointer" data-node-id="45:10670" onClick={repick ? confirmRepick : startRepick}>
+            <p className={`[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[12px] ${repick ? "text-[color:var(--status\\/green,#1d9a4c)]" : "text-[color:var(--text\\/secondary,#6b6b6b)]"} whitespace-nowrap`} data-node-id="45:10671">
+              {repick ? "Confirm these seats" : "Repick Seats"}
+            </p>
+            <div className="relative shrink-0 size-[16px]" data-node-id="45:10672" data-name={repick ? "check" : "edit-01"}>
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src={repick ? "assets/ViewPrebooking/check.svg" : imgEdit01} />
+            </div>
           </div>
         </div>
-      </div>
-      {/* Legend - Figma 61:13992 shows only the secured swatch; repick adds Available/Unavailable, paid adds Already booked. */}
-      <div className="content-stretch flex items-center justify-between px-[16px] py-[8px] relative shrink-0 w-full" data-node-id="61:13992" data-name="Seat legend">
-        <div className="content-stretch flex gap-[16px] items-center relative shrink-0" data-node-id="61:13993">
-          {repick && (
-          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="48:561">
-            <div className="border-[0.468px] border-[var(--status\/green,#1d9a4c)] border-solid content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-name="Seat/Cell" />
-            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-              Available
-            </p>
+        {/* Legend - Figma 61:13992 shows only the secured swatch; repick adds Available/Unavailable, paid adds Already booked. */}
+        <div className="content-stretch flex items-center justify-between px-[16px] py-[8px] relative shrink-0 w-full" data-node-id="61:13992" data-name="Seat legend">
+          <div className="content-stretch flex gap-[16px] items-center relative shrink-0" data-node-id="61:13993">
+            {repick && (
+            <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="48:561">
+              <div className="border-[0.468px] border-[var(--status\/green,#1d9a4c)] border-solid content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-name="Seat/Cell" />
+              <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+                Available
+              </p>
+            </div>
+            )}
+            <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="61:13997">
+              <div className="bg-[var(--status\/green,#1d9a4c)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-name="Seat/Cell" />
+              <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+                Secured for the group
+              </p>
+            </div>
+            {repick && (
+            <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="48:570">
+              <div className="bg-[var(--seat\/sold,#e3e3e3)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-name="Seat/Cell" />
+              <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+                Unavailable
+              </p>
+            </div>
+            )}
+            {countSeats(seats, "r") > 0 && (
+            <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="45:10675">
+              <div className="bg-[var(--brand\/red,#f5405c)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-name="Seat/Cell" />
+              <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+                Already booked
+              </p>
+            </div>
+            )}
           </div>
-          )}
-          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="61:13997">
-            <div className="bg-[var(--status\/green,#1d9a4c)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-name="Seat/Cell" />
-            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-              Secured for the group
-            </p>
-          </div>
-          {repick && (
-          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="48:570">
-            <div className="bg-[var(--seat\/sold,#e3e3e3)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-name="Seat/Cell" />
-            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-              Unavailable
-            </p>
-          </div>
-          )}
-          {countSeats(seats, "r") > 0 && (
-          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="45:10675">
-            <div className="bg-[var(--brand\/red,#f5405c)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-name="Seat/Cell" />
-            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-              Already booked
-            </p>
-          </div>
-          )}
         </div>
-      </div>
-      <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-h-fit py-[24px] relative w-full" data-node-id="48:573" data-name="Seat map">
-        <SeatRows seats={displaySeats} onSeat={onSeat} owners={vpSaved.owners} />
-        <CinemaScreen />
+        <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-h-fit py-[24px] relative w-full" data-node-id="48:573" data-name="Seat map">
+          <SeatRows seats={displaySeats} onSeat={onSeat} owners={vpSaved.owners} />
+          <CinemaScreen />
+        </div>
       </div>
       {/* Footer - Figma 61:14159 (autopay off) / 61:16692 (autopay on): timer, autopay, proceed. */}
       <div className="bg-white content-stretch flex flex-col gap-[12px] items-start pb-[42px] pt-[12px] px-[16px] relative shrink-0 w-full" data-node-id={autopay ? "61:16692" : "61:14159"} data-name="Select seats flow">

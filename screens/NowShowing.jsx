@@ -47,7 +47,7 @@ function NowShowingBody({ go = () => {} } = {}) {
           </div>
         </div>
       </div>
-      <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-h-px overflow-clip relative w-full" data-node-id="37:10295">
+      <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-h-0 overflow-y-auto overflow-x-hidden scroll-body relative w-full" data-node-id="37:10295">
         <div className="content-stretch flex flex-col h-[204.783px] items-start relative shrink-0 w-full" data-node-id="37:10296" data-name="Featured movie">
           <div className="absolute h-[179.809px] left-[16.65px] rounded-[11.654px] top-[14.98px] w-[calc(100%-33.3px)] cursor-pointer" data-node-id="37:10297" data-name="Resident Evil promotional artwork" onClick={notInPrototype("Streaming this title")}>
             <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[11.654px]">

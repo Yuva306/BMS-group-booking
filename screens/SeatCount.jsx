@@ -9,7 +9,7 @@ const imgChevronRight = "assets/SeatCount/ff204.svg";
 
 function SheetBackdropSeats({ header = null, onBack, onSecure, onProceed, showtime, legend, seats = GROUP_SEATS, colors, footer, onSeat, owners, proceedLabel = "Proceed booking 5 seats", proceedDisabled = false } = {}) {
   return (
-    <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col min-h-full items-start relative shrink-0 w-full" data-node-id="37:9787" data-name="Select seats">
+    <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col h-full items-start relative shrink-0 w-full" data-node-id="37:9787" data-name="Select seats">
       <div className="content-stretch flex items-start pl-[31.633px] pr-[33.382px] relative shrink-0 w-full" data-node-id="37:9788" data-name="Status bar">
         <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px pb-[2.177px] pt-[8.325px] relative" data-node-id="37:9789" data-name="StatusBar/iOS alignment">
           <div className="content-stretch flex h-[39.445px] items-center justify-between px-[21.516px] relative shrink-0 w-[83.031px]" data-node-id="37:9790" data-name="StatusBar/iOS">
@@ -52,61 +52,63 @@ function SheetBackdropSeats({ header = null, onBack, onSecure, onProceed, showti
           <div className="bg-[var(--border\/default,#dcdcdc)] h-[0.832px] relative shrink-0 w-full" data-node-id="37:9804" data-name="Header divider" />
         </div>
       </div>
-      {header}
-      {showtime || (<>
-      <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start pb-[12px] px-[16px] relative shrink-0 w-full" data-node-id="37:9805" data-name="Showtime">
-        <div className="content-stretch flex items-start relative shrink-0 w-full" data-node-id="37:9806" data-name="Date and ticket count">
-          <p className="[word-break:break-word] flex-[1_0_0] font-['Roboto'] font-normal leading-[1.18] min-w-px relative text-[13.319px] text-[color:var(--text\/secondary,#6b6b6b)]" data-node-id="37:9807" style={{ fontVariationSettings: '"wdth" 100' }}>
-            Fri, 20 Nov
-          </p>
-        </div>
-        <div className="content-stretch flex flex-col items-start pt-[12.303px] relative shrink-0 w-full" data-node-id="37:9808" data-name="Selected showtime">
-          <div className="bg-[var(--status\/green,#1d9a4c)] content-stretch flex flex-col items-start pb-[4.319px] pt-[4.995px] relative rounded-[1.665px] shrink-0 w-[98.229px] cursor-pointer" data-node-id="37:9809" data-name="09:00 AM showtime" onClick={notInPrototype("Changing the showtime")}>
-            <div className="content-stretch flex flex-col items-start pl-[23.309px] pr-[15.921px] relative shrink-0 w-full" data-node-id="37:9810" data-name="09:00 AM flow">
-              <p className="[word-break:break-word] font-['Roboto'] font-bold leading-[1.18] relative shrink-0 text-[13.319px] text-[color:var(--surface\/white,white)] w-full" data-node-id="37:9811" style={{ fontVariationSettings: '"wdth" 100' }}>
-                09:00 AM
-              </p>
-            </div>
-            <div className="content-stretch flex flex-col items-start pl-[23.309px] pr-[17.921px] pt-[2.314px] relative shrink-0 w-full" data-node-id="37:9812" data-name="KOTAK INSIGNIA flow">
-              <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[7.492px] text-[color:var(--surface\/white,white)] w-full" data-node-id="37:9813" style={{ fontVariationSettings: '"wdth" 100' }}>
-                KOTAK INSIGNIA
-              </p>
+      <div className="content-stretch flex flex-col flex-[1_0_0] items-start min-h-0 overflow-y-auto overflow-x-hidden relative w-full scroll-body" data-name="Scrollable body">
+        {header}
+        {showtime || (<>
+        <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start pb-[12px] px-[16px] relative shrink-0 w-full" data-node-id="37:9805" data-name="Showtime">
+          <div className="content-stretch flex items-start relative shrink-0 w-full" data-node-id="37:9806" data-name="Date and ticket count">
+            <p className="[word-break:break-word] flex-[1_0_0] font-['Roboto'] font-normal leading-[1.18] min-w-px relative text-[13.319px] text-[color:var(--text\/secondary,#6b6b6b)]" data-node-id="37:9807" style={{ fontVariationSettings: '"wdth" 100' }}>
+              Fri, 20 Nov
+            </p>
+          </div>
+          <div className="content-stretch flex flex-col items-start pt-[12.303px] relative shrink-0 w-full" data-node-id="37:9808" data-name="Selected showtime">
+            <div className="bg-[var(--status\/green,#1d9a4c)] content-stretch flex flex-col items-start pb-[4.319px] pt-[4.995px] relative rounded-[1.665px] shrink-0 w-[98.229px] cursor-pointer" data-node-id="37:9809" data-name="09:00 AM showtime" onClick={notInPrototype("Changing the showtime")}>
+              <div className="content-stretch flex flex-col items-start pl-[23.309px] pr-[15.921px] relative shrink-0 w-full" data-node-id="37:9810" data-name="09:00 AM flow">
+                <p className="[word-break:break-word] font-['Roboto'] font-bold leading-[1.18] relative shrink-0 text-[13.319px] text-[color:var(--surface\/white,white)] w-full" data-node-id="37:9811" style={{ fontVariationSettings: '"wdth" 100' }}>
+                  09:00 AM
+                </p>
+              </div>
+              <div className="content-stretch flex flex-col items-start pl-[23.309px] pr-[17.921px] pt-[2.314px] relative shrink-0 w-full" data-node-id="37:9812" data-name="KOTAK INSIGNIA flow">
+                <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[7.492px] text-[color:var(--surface\/white,white)] w-full" data-node-id="37:9813" style={{ fontVariationSettings: '"wdth" 100' }}>
+                  KOTAK INSIGNIA
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      </>)}
-      {legend || (<>
-      <div className="content-stretch flex items-start justify-between pb-[8px] pt-[24px] px-[16px] relative shrink-0 w-full" data-node-id="37:9814" data-name="Seat legend">
-        <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="37:9815" data-name="Available legend">
-          <div className="border-[0.468px] border-[var(--status\/green,#1d9a4c)] border-solid content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-node-id="37:9816" data-name="Seat/Cell" />
-          <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:9817" style={{ fontVariationSettings: '"wdth" 100' }}>
-            Available
-          </p>
+        </>)}
+        {legend || (<>
+        <div className="content-stretch flex items-start justify-between pb-[8px] pt-[24px] px-[16px] relative shrink-0 w-full" data-node-id="37:9814" data-name="Seat legend">
+          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="37:9815" data-name="Available legend">
+            <div className="border-[0.468px] border-[var(--status\/green,#1d9a4c)] border-solid content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-node-id="37:9816" data-name="Seat/Cell" />
+            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:9817" style={{ fontVariationSettings: '"wdth" 100' }}>
+              Available
+            </p>
+          </div>
+          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="37:9818" data-name="Selected legend">
+            <div className="bg-[var(--status\/blue,#2458d6)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-node-id="37:9819" data-name="Seat/Cell" />
+            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:9820" style={{ fontVariationSettings: '"wdth" 100' }}>
+              Selected by you
+            </p>
+          </div>
+          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="37:9821" data-name="Selected legend">
+            <div className="bg-[var(--status\/green,#1d9a4c)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-node-id="37:9822" data-name="Seat/Cell" />
+            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:9823" style={{ fontVariationSettings: '"wdth" 100' }}>
+              Selected by friends
+            </p>
+          </div>
+          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="37:9824" data-name="Sold legend">
+            <div className="bg-[var(--seat\/sold,#e3e3e3)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-node-id="37:9825" data-name="Seat/Cell" />
+            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:9826" style={{ fontVariationSettings: '"wdth" 100' }}>
+              Sold
+            </p>
+          </div>
         </div>
-        <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="37:9818" data-name="Selected legend">
-          <div className="bg-[var(--status\/blue,#2458d6)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-node-id="37:9819" data-name="Seat/Cell" />
-          <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:9820" style={{ fontVariationSettings: '"wdth" 100' }}>
-            Selected by you
-          </p>
+        </>)}
+        <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-h-fit py-[24px] relative w-full" data-node-id="37:9827" data-name="Seat map">
+          <SeatRows seats={seats} colors={colors} onSeat={onSeat} owners={owners || seatOwnersFor(seats)} />
+          <CinemaScreen />
         </div>
-        <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="37:9821" data-name="Selected legend">
-          <div className="bg-[var(--status\/green,#1d9a4c)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-node-id="37:9822" data-name="Seat/Cell" />
-          <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:9823" style={{ fontVariationSettings: '"wdth" 100' }}>
-            Selected by friends
-          </p>
-        </div>
-        <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="37:9824" data-name="Sold legend">
-          <div className="bg-[var(--seat\/sold,#e3e3e3)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-node-id="37:9825" data-name="Seat/Cell" />
-          <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:9826" style={{ fontVariationSettings: '"wdth" 100' }}>
-            Sold
-          </p>
-        </div>
-      </div>
-      </>)}
-      <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-h-fit py-[24px] relative w-full" data-node-id="37:9827" data-name="Seat map">
-        <SeatRows seats={seats} colors={colors} onSeat={onSeat} owners={owners || seatOwnersFor(seats)} />
-        <CinemaScreen />
       </div>
       {footer || (<>
       <div className="content-stretch flex flex-col gap-[16px] items-start pb-[42px] px-[16px] relative shrink-0 w-full" data-node-id="37:9980" data-name="Select seats flow">

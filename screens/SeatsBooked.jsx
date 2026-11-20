@@ -9,7 +9,7 @@ function SeatsBooked({ go, back }) {
   return (
     <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start relative size-full" data-node-id="45:13088" data-name="Confirm booking">
       <Header622 title="Booked" onBack={back} ids={["45:13089", "45:13094"]} />
-      <div className="content-stretch flex flex-[1_0_0] flex-col gap-[48px] items-center justify-center min-h-px px-[16px] relative w-full" data-node-id="45:13102" data-name="Booking details">
+      <div className="content-stretch flex flex-[1_0_0] flex-col gap-[48px] items-center justify-[safe_center] min-h-0 overflow-y-auto scroll-body px-[16px] relative w-full" data-node-id="45:13102" data-name="Booking details">
         <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0" data-node-id="45:13103">
           <div className="h-[150px] relative shrink-0 w-[208.011px]" data-node-id="45:13104" data-name="Vector">
             <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVector} />

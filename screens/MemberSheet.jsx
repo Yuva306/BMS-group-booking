@@ -12,7 +12,7 @@ function MemberSheet({ back, bare }) {
     <div className="relative size-full" data-node-id="37:8547" style={bare ? { background: "transparent" } : undefined}>
       {!bare && <GroupSeatsBody seats={getGroupSeats()} owners={getGroupOwners()} proceedLabel={countSeats(getGroupSeats(), "y") ? `Proceed booking ${countSeats(getGroupSeats(), "y")} seat${countSeats(getGroupSeats(), "y") === 1 ? "" : "s"}` : "Proceed booking"} proceedDisabled={!countSeats(getGroupSeats(), "y")} />}
       <div className="absolute bg-[rgba(0,0,0,0.6)] inset-0 cursor-pointer" data-node-id="37:8854" onClick={back} />
-      <div className="absolute left-0 bottom-0 w-full max-h-full overflow-y-auto">
+      <div className="absolute left-0 bottom-0 w-full max-h-[calc(100%-24px)] overflow-y-auto scroll-body rounded-tl-[16.68px] rounded-tr-[16.68px]">
         <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col gap-[16px] items-center overflow-clip pb-[48px] pt-[6.672px] px-[16px] relative rounded-tl-[16.68px] rounded-tr-[16.68px] w-full" data-node-id="37:8822" data-name="Seat count sheet">
           <div className="content-stretch flex flex-col items-center pl-[2.321px] relative shrink-0 w-full cursor-pointer" data-node-id="37:8823" data-name="Sheet grab handle flow" onClick={back}>
             <div className="bg-[var(--border\/default,#dcdcdc)] h-[5.004px] relative rounded-[3.336px] shrink-0 w-[31.692px]" data-node-id="37:8824" data-name="Sheet grab handle" />

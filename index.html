@@ -14,12 +14,13 @@
   <style>
     html, body { margin: 0; background: #e5e5e5; font-family: 'Roboto', sans-serif; }
     #root { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px 0; box-sizing: border-box; }
-    /* Phone frame: fills the screen up to 440x956; scrolls if a screen's content is taller. */
-    .device { position: relative; overflow-x: hidden; overflow-y: auto; scrollbar-width: none; background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,.25);
+    /* Phone frame: fills the screen up to 440x956. The frame never scrolls; each screen's
+       header and footer stay fixed and only its body (.scroll-body) scrolls. */
+    .device { position: relative; overflow: hidden; background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,.25);
               width: min(100vw, 440px); height: min(calc(100dvh - 48px), 956px); }
-    .device::-webkit-scrollbar { display: none; }
-    .device.modal-open { overflow: hidden; }
-    .device > * { min-height: 100%; }
+    .device > * { height: 100%; }
+    .scroll-body { scrollbar-width: none; overscroll-behavior: contain; }
+    .scroll-body::-webkit-scrollbar { display: none; }
     @media (max-width: 440px), (max-height: 700px) {
       #root { padding: 0; }
       .device { height: min(100dvh, 956px); box-shadow: none; }

@@ -43,7 +43,7 @@ function ContactDetails({ go, back }) {
           </div>
         </div>
       </div>
-      <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-h-px overflow-clip px-[16px] py-[12px] relative w-full" data-node-id="45:11715" data-name="content">
+      <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-h-0 overflow-y-auto scroll-body px-[16px] py-[12px] relative w-full" data-node-id="45:11715" data-name="content">
         <div className="content-stretch flex flex-col gap-[20px] items-start overflow-clip relative shrink-0 w-full" data-node-id="45:11716" data-name="form">
           <div className="content-stretch flex flex-col gap-[6px] items-start overflow-clip relative shrink-0 w-full" data-node-id="45:11717" data-name="field">
             <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[normal] relative shrink-0 text-[12px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="45:11718" style={{ fontVariationSettings: '"wdth" 100' }}>

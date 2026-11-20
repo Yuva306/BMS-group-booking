@@ -100,7 +100,7 @@ function TicketBase({ expanded, go, back }) {
           </div>
         </div>
       </div>
-      <div className="content-stretch flex flex-col h-[737.267px] items-start relative shrink-0 w-full" data-node-id="45:12273" data-name="Ticket area">
+      <div className="content-stretch flex flex-col flex-[1_0_0] items-start min-h-0 overflow-y-auto overflow-x-hidden relative scroll-body pb-[24px] w-full" data-node-id="45:12273" data-name="Ticket area">
         <div className="content-stretch flex flex-col items-start pl-[30.024px] pr-[29.371px] relative shrink-0 w-full" data-node-id="45:12274" data-name="Ticket content">
           <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start overflow-clip relative rounded-[13.344px] shrink-0 w-full" data-node-id="45:12275" data-name="Ticket">
             <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="45:12276" data-name="Row · Ticket 1 flow">

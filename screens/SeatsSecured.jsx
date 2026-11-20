@@ -52,7 +52,7 @@ function SeatsSecured({ go, back }) {
   return (
     <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start relative size-full" data-node-id="45:11026" data-name="Confirm booking">
       <Header622 title="Prebook Seats" onBack={back} ids={["45:11027", "45:11032"]} />
-      <div className="content-stretch flex flex-[1_0_0] flex-col gap-[48px] items-center justify-center min-h-px px-[16px] relative w-full" data-node-id="45:11040" data-name="Booking details">
+      <div className="content-stretch flex flex-[1_0_0] flex-col gap-[48px] items-center justify-[safe_center] min-h-0 overflow-y-auto scroll-body px-[16px] relative w-full" data-node-id="45:11040" data-name="Booking details">
         <div className="content-stretch flex flex-col gap-[12px] items-center relative shrink-0" data-node-id="45:11142">
           <div className="h-[150px] relative shrink-0 w-[208.011px]" data-node-id="45:11126" data-name="Vector">
             <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgVector} />

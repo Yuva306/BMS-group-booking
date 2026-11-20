@@ -11,7 +11,7 @@ function GroupInvite({ go, back, bare }) {
     <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start relative size-full" data-node-id="28:7313" data-name="How many seats?" style={bare ? { background: "transparent" } : undefined}>
       {!bare && <SheetBackdropSeats />}
       <div className="absolute bg-[rgba(0,0,0,0.6)] inset-0 cursor-pointer" data-node-id="37:8856" onClick={back} />
-      <div className="absolute left-0 bottom-0 w-full max-h-full overflow-y-auto">
+      <div className="absolute left-0 bottom-0 w-full max-h-[calc(100%-24px)] overflow-y-auto scroll-body rounded-tl-[16.68px] rounded-tr-[16.68px]">
         <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col gap-[16px] items-center overflow-clip pt-[6.672px] px-[16px] relative rounded-tl-[16.68px] rounded-tr-[16.68px] w-full" data-node-id="28:7493" data-name="Seat count sheet">
           <div className="content-stretch flex flex-col items-center pl-[2.321px] relative shrink-0 w-full cursor-pointer" data-node-id="28:7494" data-name="Sheet grab handle flow" onClick={back}>
             <div className="bg-[var(--border\/default,#dcdcdc)] h-[5.004px] relative rounded-[3.336px] shrink-0 w-[31.692px]" data-node-id="28:7495" data-name="Sheet grab handle" />
