@@ -6,6 +6,7 @@ const imgClock = "assets/SeatsBooked/5fbd0.svg";
 function SeatsBooked({ go, back }) {
   const left = useCountdown("1:24:18");
   const { paid, remaining } = sessionBooking();
+  const allDone = remaining.length === 0; // everything booked: no timer, straight to the tickets
   return (
     <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start relative size-full" data-node-id="45:13088" data-name="Confirm booking">
       <Header622 title="Booked" onBack={back} ids={["45:13089", "45:13094"]} />
@@ -18,11 +19,12 @@ function SeatsBooked({ go, back }) {
             {`${seatsWord(paid.length)} ${paid.length === 1 ? "is" : "are"} booked`}
           </p>
         </div>
-        <div className="bg-[var(--brand\/red,#f5405c)] content-stretch flex h-[40.033px] items-center justify-center relative rounded-[6.672px] shrink-0 w-[175.143px] cursor-pointer" data-node-id="45:13113" data-name="Continue" onClick={() => go("viewPrebookingPaid")}>
+        <div className="bg-[var(--brand\/red,#f5405c)] content-stretch flex h-[40.033px] items-center justify-center relative rounded-[6.672px] shrink-0 w-[175.143px] cursor-pointer" data-node-id="45:13113" data-name="Continue" onClick={() => go(allDone ? "ticket" : "viewPrebookingPaid")}>
           <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.2] relative shrink-0 text-[13.344px] text-[color:var(--surface\/white,white)] whitespace-nowrap" data-node-id="I45:13113;1:26" style={{ fontVariationSettings: '"wdth" 100' }}>
-            Continue booking
+            {allDone ? "View Tickets" : "Continue booking"}
           </p>
         </div>
+        {!allDone && (
         <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start px-[16px] relative shrink-0 w-full" data-node-id="45:13122">
           <div className="bg-[var(--status\/yellow-bg,#fff6dd)] content-stretch flex gap-[8px] items-start overflow-clip px-[16px] py-[12px] relative rounded-[10px] shrink-0 w-full" data-node-id="45:13123" data-name="timer chip">
             <div className="relative shrink-0 size-[16px]" data-node-id="45:13124" data-name="clock">
@@ -34,6 +36,7 @@ function SeatsBooked({ go, back }) {
             </div>
           </div>
         </div>
+        )}
       </div>
     </div>
   );
