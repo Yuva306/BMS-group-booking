@@ -187,7 +187,7 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
           </div>
         </div>
       </div>
-      {/* Legend - Figma 61:13992 shows only the secured swatch; repick adds Available/Unavailable, paid adds Booked by you. */}
+      {/* Legend - Figma 61:13992 shows only the secured swatch; repick adds Available/Unavailable, paid adds Already booked. */}
       <div className="content-stretch flex items-center justify-between px-[16px] py-[8px] relative shrink-0 w-full" data-node-id="61:13992" data-name="Seat legend">
         <div className="content-stretch flex gap-[16px] items-center relative shrink-0" data-node-id="61:13993">
           {repick && (
@@ -216,7 +216,7 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
           <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="45:10675">
             <div className="bg-[var(--brand\/red,#f5405c)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-name="Seat/Cell" />
             <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-              Booked by you
+              Already booked
             </p>
           </div>
           )}
