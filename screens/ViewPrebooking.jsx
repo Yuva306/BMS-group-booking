@@ -39,6 +39,7 @@ function vpSync() {
 
 function ViewPrebookingBase({ variant, nodeId, go, back }) {
   vpSync();
+  window.seatOwnersNow = vpSaved.owners; // who chose each seat, for the ticket receipt
   const left = useCountdown("1:24:18");
   // Paid view: rebuild from this session — paid seats red, the rest of your held seats green.
   const paidStart = () => {
@@ -118,6 +119,7 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
   const mine = window.paySelection ? window.paySelection.seats : [];
   const bookedRows = heldList.map((id) => ({
     id,
+    chosen: NAMES[vpSaved.owners[id]] || NAMES[myInitial()],
     by: NAMES[mine.includes(id) ? myInitial() : vpSaved.owners[id]] || NAMES[myInitial()],
     price: "ABC".includes(id[0]) ? 480 : 430,
   }));

@@ -203,7 +203,7 @@ function TicketCard({ expanded, onToggle, paid, seatRows, className = "pl-[30.02
                     {`Seat ${r.id}`}
                   </p>
                   <p className="relative shrink-0 text-[9px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
-                    {`Paid by ${r.by}`}
+                    {r.chosen ? `Chosen by ${r.chosen}, Paid by ${r.by}` : `Paid by ${r.by}`}
                   </p>
                 </div>
                 <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative">
@@ -230,8 +230,8 @@ function TicketBase({ expanded, go, back }) {
   const NAMES = { Y: "Yuva", S: "Shwas", A: "Aadi", R: "Rishi", P: "Pranjal" };
   const payer = NAMES[myInitial()];
   const seatRows = window.paySelection
-    ? paid.map((id) => ({ id, by: payer, price: "ABC".includes(id[0]) ? 480 : 430 }))
-    : [{ id: "D06", by: "Yuva", price: 430 }, { id: "D07", by: "Rishi", price: 430 }];
+    ? paid.map((id) => ({ id, chosen: NAMES[(window.seatOwnersNow || DEFAULT_OWNERS)[id]], by: payer, price: "ABC".includes(id[0]) ? 480 : 430 }))
+    : [{ id: "D06", chosen: "Yuva", by: "Yuva", price: 430 }, { id: "D07", chosen: "Yuva", by: "Rishi", price: 430 }];
   return (
     <div className="bg-[var(--text\/primary,#1a1a1a)] content-stretch flex flex-col items-start relative size-full" data-node-id={expanded ? "45:11754" : "29:116"} data-name="Your ticket">
       <div className="bg-[var(--text\/primary,#1a1a1a)] content-stretch flex h-[58.381px] items-start pl-[31.692px] pr-[32.706px] relative shrink-0 w-full" data-node-id="45:11755" data-name="Status bar">
