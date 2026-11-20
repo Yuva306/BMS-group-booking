@@ -4,7 +4,7 @@
 const imgShare07 = "assets/GroupSeats/2d122.svg";
 const imgChevronLeft = "assets/GroupSeats/e324a.svg";
 
-function GroupHeader({ onMembers, w = "w-[393px]", compact = false }) {
+function GroupHeader({ onMembers, w = "w-full", compact = false }) {
   const { joined } = useGroupSim();
   // Figma avatar stack is P R A S Y (Y = you, last). Show only friends who have joined.
   const shown = ["P", "R", "A", "S"].filter((l) => FRIENDS.slice(0, joined).some((f) => f[0] === l));

@@ -125,8 +125,9 @@ function TierLabel({ text, pr, w, pt }) {
 
 // Seat rows + tier labels (without the outer "Seat map" wrapper or the screen graphic).
 function SeatRows({ seats, colors, onSeat, owners = seatOwnersFor(seats) }) {
+  // Keep the grid at its designed 393px width, centred on wider screens.
   return (
-    <>
+    <div className="content-stretch flex flex-col items-start relative shrink-0 w-full max-w-[393px] mx-auto">
       <TierLabel text="₹ 480 ROYAL ROWS" pr="pr-[226.053px]" w="w-[117px]" />
       <SeatRow row="A" states={seats.A} colors={colors} onSeat={onSeat} owners={owners} />
       <SeatRow row="B" states={seats.B} colors={colors} onSeat={onSeat} owners={owners} />
@@ -134,13 +135,13 @@ function SeatRows({ seats, colors, onSeat, owners = seatOwnersFor(seats) }) {
       <TierLabel text="₹ 430 EXECUTIVE ROWS" pr="pr-[198.053px]" w="w-[145px]" pt="pt-[9.989px]" />
       <SeatRow row="D" states={seats.D} colors={colors} onSeat={onSeat} owners={owners} />
       <SeatRow row="E" states={seats.E} colors={colors} onSeat={onSeat} owners={owners} />
-    </>
+    </div>
   );
 }
 
 function CinemaScreen() {
   return (
-    <>
+    <div className="content-stretch flex flex-col items-start relative shrink-0 w-full max-w-[393px] mx-auto">
       <div className="content-stretch flex flex-col items-start pl-[11.654px] pr-[11.738px] pt-[31.633px] relative shrink-0 w-full" data-name="Cinema screen flow">
         <div className="content-stretch flex flex-col h-[28.303px] items-start overflow-clip px-[3.33px] py-[1.665px] relative shrink-0 w-full" data-name="Cinema screen">
           <div className="h-[24.974px] relative shrink-0 w-full">
@@ -155,7 +156,7 @@ function CinemaScreen() {
           All eyes this way please!
         </p>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -22,24 +22,24 @@ function NowShowingBody({ go = () => {} } = {}) {
   const { imgCellularWiFiAndBattery, imgImage2, imgRuffAndTuffKanvaMovieArtwork, imgGroup, imgGroup1, imgGroup2, imgLikesThumbsUp, imgLikesThumbsUp1, imgProfileIcon, imgHomeIcon, imgMoviesIcon, imgLiveEventsIcon } = NS;
   return (
     <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start relative size-full" data-node-id="28:6524" data-name="Now showing">
-      <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col h-[53.277px] items-start relative shrink-0 w-[393px]" data-node-id="28:6525" data-name="Status bar">
-        <div className="absolute content-stretch flex h-[39.445px] items-center justify-between left-[31.63px] px-[21.516px] top-[8.32px] w-[349.629px]" data-node-id="28:6526" data-name="StatusBar/iOS">
+      <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col h-[53.277px] items-start relative shrink-0 w-full" data-node-id="28:6525" data-name="Status bar">
+        <div className="absolute content-stretch flex h-[39.445px] items-center justify-between left-[31.63px] px-[21.516px] top-[8.32px] right-[33.38px]" data-node-id="28:6526" data-name="StatusBar/iOS">
           <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[normal] not-italic relative shrink-0 text-[17.481px] text-black whitespace-nowrap" data-node-id="I28:6526;1:38">
             6:06
           </p>
         </div>
-        <div className="absolute h-[19.979px] left-[281.37px] top-[19.98px] w-[78.25px]" data-node-id="28:6527" data-name="Cellular Wi-Fi and battery">
+        <div className="absolute h-[19.979px] right-[33.38px] top-[19.98px] w-[78.25px]" data-node-id="28:6527" data-name="Cellular Wi-Fi and battery">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <img alt="" className="absolute h-[4258.33%] left-[-359.57%] max-w-none top-[-100%] w-[502.13%]" src={imgCellularWiFiAndBattery} />
           </div>
         </div>
       </div>
-      <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col h-[64.931px] items-start relative shrink-0 w-[393px]" data-node-id="28:6528" data-name="Now showing header">
+      <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col h-[64.931px] items-start relative shrink-0 w-full" data-node-id="28:6528" data-name="Now showing header">
         <p className="[word-break:break-word] absolute font-['Roboto'] font-bold leading-[1.18] left-[16.65px] text-[19.979px] text-[color:var(--text\/primary,#1a1a1a)] top-[13.32px] whitespace-nowrap" data-node-id="28:6529" style={{ fontVariationSettings: '"wdth" 100' }}>
           Now Showing
         </p>
         <p className="[word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[16.65px] text-[11.654px] text-[color:var(--text\/secondary,#6b6b6b)] top-[38.29px] whitespace-pre" data-node-id="28:6530" style={{ fontVariationSettings: '"wdth" 100' }}>{`Powai, Mumbai  |  45 Movies`}</p>
-        <div className="absolute left-[352.96px] overflow-clip size-[23.309px] top-[19.98px] cursor-pointer" data-node-id="28:6531" data-name="Search" onClick={notInPrototype("Search")}>
+        <div className="absolute right-[16.73px] overflow-clip size-[23.309px] top-[19.98px] cursor-pointer" data-node-id="28:6531" data-name="Search" onClick={notInPrototype("Search")}>
           <div className="absolute inset-[14.58%_12.5%_12.5%_14.58%]" data-node-id="28:6532" data-name="Group">
             <div className="absolute inset-[-3.46%_-3.46%_-3.47%_-3.46%]">
               <img alt="" className="block max-w-none size-full" src={imgGroup} />
@@ -48,8 +48,8 @@ function NowShowingBody({ go = () => {} } = {}) {
         </div>
       </div>
       <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-h-px overflow-clip relative w-full" data-node-id="37:10295">
-        <div className="content-stretch flex flex-col h-[204.783px] items-start relative shrink-0 w-[393px]" data-node-id="37:10296" data-name="Featured movie">
-          <div className="absolute h-[179.809px] left-[16.65px] rounded-[11.654px] top-[14.98px] w-[359.618px] cursor-pointer" data-node-id="37:10297" data-name="Resident Evil promotional artwork" onClick={notInPrototype("Streaming this title")}>
+        <div className="content-stretch flex flex-col h-[204.783px] items-start relative shrink-0 w-full" data-node-id="37:10296" data-name="Featured movie">
+          <div className="absolute h-[179.809px] left-[16.65px] rounded-[11.654px] top-[14.98px] w-[calc(100%-33.3px)] cursor-pointer" data-node-id="37:10297" data-name="Resident Evil promotional artwork" onClick={notInPrototype("Streaming this title")}>
             <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[11.654px]">
               <img alt="" className="absolute h-[473.15%] left-[-4.63%] max-w-none top-[-74.07%] w-[109.26%]" src={imgCellularWiFiAndBattery} />
             </div>
@@ -92,7 +92,7 @@ function NowShowingBody({ go = () => {} } = {}) {
             </div>
           </div>
         </div>
-        <div className="content-stretch flex flex-col h-[53.277px] items-start relative shrink-0 w-[393px]" data-node-id="37:10306" data-name="Movie filters">
+        <div className="content-stretch flex flex-col h-[53.277px] items-start relative shrink-0 w-full" data-node-id="37:10306" data-name="Movie filters">
           <div className="absolute bg-[var(--surface\/white,white)] border-[0.832px] border-[var(--border\/default,#dcdcdc)] border-solid h-[29.968px] left-[64.93px] rounded-[16.649px] top-[8.32px] w-[98.229px] cursor-pointer" data-node-id="37:10307" data-name="New Releases" onClick={notInPrototype("The New Releases filter")}/>
           <p className="[word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[76.59px] text-[11.654px] text-[color:var(--brand\/red,#f5405c)] top-[16.65px] whitespace-nowrap cursor-pointer" data-node-id="37:10308" style={{ fontVariationSettings: '"wdth" 100' }} onClick={notInPrototype("The New Releases filter")}>
             New Releases
@@ -119,13 +119,13 @@ function NowShowingBody({ go = () => {} } = {}) {
           </div>
           <div className="absolute bg-[var(--border\/default,#dcdcdc)] h-[28.303px] left-[54.94px] top-[9.99px] w-[0.832px]" data-node-id="37:10319" data-name="Filter divider" />
         </div>
-        <div className="content-stretch flex flex-col h-[309.671px] items-start relative shrink-0 w-[393px]" data-node-id="37:10320" data-name="Movie posters">
-          <div className="absolute h-[258.06px] left-[16.65px] rounded-[9.989px] top-[8.32px] w-[171.485px] cursor-pointer" data-node-id="37:10321" data-name="Ruff and Tuff Kanva movie artwork" onClick={() => go("movie")}>
+        <div className="content-stretch flex flex-col h-[309.671px] items-start relative shrink-0 w-full" data-node-id="37:10320" data-name="Movie posters">
+          <div className="absolute h-[258.06px] left-[16.65px] rounded-[9.989px] top-[8.32px] w-[calc(50%-24.97px)] cursor-pointer" data-node-id="37:10321" data-name="Ruff and Tuff Kanva movie artwork" onClick={() => go("movie")}>
             <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[9.989px]">
               <img alt="" className="absolute h-[143.79%] left-[0.45%] max-w-none top-[-8.83%] w-[99.94%]" src={imgRuffAndTuffKanvaMovieArtwork} />
             </div>
           </div>
-          <div className="absolute h-[258.06px] left-[204.78px] rounded-[9.989px] top-[8.32px] w-[171.485px] cursor-pointer" data-node-id="37:10322" data-name="Avengers Doomsday movie artwork" onClick={notInPrototype("Avengers: Doomsday")}>
+          <div className="absolute h-[258.06px] left-[calc(50%+8.33px)] rounded-[9.989px] top-[8.32px] w-[calc(50%-24.97px)] cursor-pointer" data-node-id="37:10322" data-name="Avengers Doomsday movie artwork" onClick={notInPrototype("Avengers: Doomsday")}>
             <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[9.989px]">
               <img alt="" className="absolute h-[329.68%] left-[-119.42%] max-w-none top-[-180.65%] w-[229.13%]" src={imgCellularWiFiAndBattery} />
             </div>
@@ -133,10 +133,10 @@ function NowShowingBody({ go = () => {} } = {}) {
           <p className="[word-break:break-word] absolute font-['Roboto'] font-medium leading-[1.18] left-[16.65px] text-[14.984px] text-[color:var(--text\/primary,#1a1a1a)] top-[298.02px] whitespace-nowrap cursor-pointer" data-node-id="37:10323" style={{ fontVariationSettings: '"wdth" 100' }} onClick={() => go("movie")}>
             Wildwood
           </p>
-          <p className="[word-break:break-word] absolute font-['Roboto'] font-medium leading-[1.18] left-[204.78px] text-[14.984px] text-[color:var(--text\/primary,#1a1a1a)] top-[298.02px] whitespace-nowrap cursor-pointer" data-node-id="37:10324" style={{ fontVariationSettings: '"wdth" 100' }} onClick={notInPrototype("Avengers: Doomsday")}>
+          <p className="[word-break:break-word] absolute font-['Roboto'] font-medium leading-[1.18] left-[calc(50%+8.33px)] text-[14.984px] text-[color:var(--text\/primary,#1a1a1a)] top-[298.02px] whitespace-nowrap cursor-pointer" data-node-id="37:10324" style={{ fontVariationSettings: '"wdth" 100' }} onClick={notInPrototype("Avengers: Doomsday")}>
             Avengers: Doomsday
           </p>
-          <p className="[word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[228.09px] text-[13.319px] text-[color:var(--text\/secondary,#6b6b6b)] top-[274.71px] whitespace-nowrap" data-node-id="37:10325" style={{ fontVariationSettings: '"wdth" 100' }}>
+          <p className="[word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[calc(50%+31.64px)] text-[13.319px] text-[color:var(--text\/secondary,#6b6b6b)] top-[274.71px] whitespace-nowrap" data-node-id="37:10325" style={{ fontVariationSettings: '"wdth" 100' }}>
             869K+ likes
           </p>
           <div className="absolute bg-[var(--brand\/red,#f5405c)] h-[44.952px] left-[16.65px] rounded-[24.974px] shadow-[0px_3.33px_6.66px_0px_rgba(0,0,0,0.14)] top-[238.08px] w-[176.479px] cursor-pointer" data-node-id="37:10326" data-name="Browse by Cinemas" onClick={notInPrototype("Browse by Cinemas")}/>
@@ -150,7 +150,7 @@ function NowShowingBody({ go = () => {} } = {}) {
           <p className="[word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[59.94px] text-[13.319px] text-[color:var(--surface\/white,white)] top-[253.06px] whitespace-nowrap cursor-pointer" data-node-id="37:10331" style={{ fontVariationSettings: '"wdth" 100' }} onClick={notInPrototype("Browse by Cinemas")}>
             Browse by Cinemas
           </p>
-          <div className="absolute h-[14.984px] left-[204.78px] top-[274.71px] w-[16.649px]" data-node-id="37:10332" data-name="Likes thumbs up">
+          <div className="absolute h-[14.984px] left-[calc(50%+8.33px)] top-[274.71px] w-[16.649px]" data-node-id="37:10332" data-name="Likes thumbs up">
             <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgLikesThumbsUp} />
           </div>
           <div className="absolute h-[14.984px] left-[16.65px] top-[274.71px] w-[16.649px]" data-node-id="37:10334" data-name="Likes thumbs up">
@@ -161,31 +161,31 @@ function NowShowingBody({ go = () => {} } = {}) {
           </p>
         </div>
       </div>
-      <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col h-[83.245px] items-start relative shrink-0 w-[393px]" data-node-id="28:6570" data-name="Bottom navigation">
-        <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[46.62px] text-[11.654px] text-[color:var(--text\/secondary,#6b6b6b)] text-center top-[34.96px] w-[83.245px] cursor-pointer" data-node-id="28:6571" style={{ fontVariationSettings: '"wdth" 100' }} onClick={notInPrototype("Home")}>
+      <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col h-[83.245px] items-start relative shrink-0 w-full" data-node-id="28:6570" data-name="Bottom navigation">
+        <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[11.86%] text-[11.654px] text-[color:var(--text\/secondary,#6b6b6b)] text-center top-[34.96px] w-[83.245px] cursor-pointer" data-node-id="28:6571" style={{ fontVariationSettings: '"wdth" 100' }} onClick={notInPrototype("Home")}>
           Home
         </p>
-        <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[146.51px] text-[11.654px] text-[color:var(--brand\/red,#f5405c)] text-center top-[34.96px] w-[83.245px]" data-node-id="28:6572" style={{ fontVariationSettings: '"wdth" 100' }}>
+        <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[37.28%] text-[11.654px] text-[color:var(--brand\/red,#f5405c)] text-center top-[34.96px] w-[83.245px]" data-node-id="28:6572" style={{ fontVariationSettings: '"wdth" 100' }}>
           Movies
         </p>
-        <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[244.74px] text-[11.654px] text-[color:var(--text\/secondary,#6b6b6b)] text-center top-[34.96px] w-[83.245px] cursor-pointer" data-node-id="28:6573" style={{ fontVariationSettings: '"wdth" 100' }} onClick={notInPrototype("Live Events")}>
+        <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[62.27%] text-[11.654px] text-[color:var(--text\/secondary,#6b6b6b)] text-center top-[34.96px] w-[83.245px] cursor-pointer" data-node-id="28:6573" style={{ fontVariationSettings: '"wdth" 100' }} onClick={notInPrototype("Live Events")}>
           Live Events
         </p>
-        <div className="absolute h-[21.644px] left-[334.64px] top-[8.32px] w-[19.979px] cursor-pointer" data-node-id="28:6574" data-name="Profile icon" onClick={notInPrototype("Profile")}>
+        <div className="absolute h-[21.644px] left-[calc(87.69%-9.99px)] top-[8.32px] w-[19.979px] cursor-pointer" data-node-id="28:6574" data-name="Profile icon" onClick={notInPrototype("Profile")}>
           <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgProfileIcon} />
         </div>
-        <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[344.63px] text-[11.654px] text-[color:var(--text\/secondary,#6b6b6b)] text-center top-[34.96px] w-[83.245px] cursor-pointer" data-node-id="28:6576" style={{ fontVariationSettings: '"wdth" 100' }} onClick={notInPrototype("Profile")}>
+        <p className="-translate-x-1/2 [word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[87.69%] text-[11.654px] text-[color:var(--text\/secondary,#6b6b6b)] text-center top-[34.96px] w-[83.245px] cursor-pointer" data-node-id="28:6576" style={{ fontVariationSettings: '"wdth" 100' }} onClick={notInPrototype("Profile")}>
           Profile
         </p>
-        <div className="absolute h-[19.979px] left-[36.63px] top-[8.32px] w-[21.644px] cursor-pointer" data-node-id="28:6577" data-name="Home icon" onClick={notInPrototype("Home")}>
+        <div className="absolute h-[19.979px] left-[calc(12.07%-10.82px)] top-[8.32px] w-[21.644px] cursor-pointer" data-node-id="28:6577" data-name="Home icon" onClick={notInPrototype("Home")}>
           <div className="absolute inset-[-12.43%_-4.82%_-11.1%_-0.38%]">
             <img alt="" className="block max-w-none size-full" src={imgHomeIcon} />
           </div>
         </div>
-        <div className="absolute h-[19.979px] left-[136.52px] top-[8.32px] w-[21.644px]" data-node-id="28:6579" data-name="Movies icon">
+        <div className="absolute h-[19.979px] left-[calc(37.49%-10.82px)] top-[8.32px] w-[21.644px]" data-node-id="28:6579" data-name="Movies icon">
           <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgMoviesIcon} />
         </div>
-        <div className="absolute h-[19.979px] left-[234.75px] top-[8.32px] w-[21.644px] cursor-pointer" data-node-id="28:6581" data-name="Live Events icon" onClick={notInPrototype("Live Events")}>
+        <div className="absolute h-[19.979px] left-[calc(62.49%-10.82px)] top-[8.32px] w-[21.644px] cursor-pointer" data-node-id="28:6581" data-name="Live Events icon" onClick={notInPrototype("Live Events")}>
           <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgLiveEventsIcon} />
         </div>
       </div>

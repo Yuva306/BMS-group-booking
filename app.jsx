@@ -89,6 +89,11 @@ function App() {
   const BaseScreen = window.Screens[baseName];
   const [name] = ROUTES[current];
   const Screen = window.Screens[name];
+  // Each new screen starts at the top; opening a sheet scrolls back up so it covers what you see.
+  const deviceRef = React.useRef(null);
+  React.useEffect(() => {
+    if (deviceRef.current) deviceRef.current.scrollTop = 0;
+  }, [base, isModal]);
 
   return (
     <>
@@ -97,7 +102,7 @@ function App() {
           <option key={k} value={k}>{n} ({id})</option>
         ))}
       </select>
-      <div className="device" style={{ width: w, height: h }}>
+      <div className={`device${isModal ? " modal-open" : ""}`} ref={deviceRef}>
         {/* The base screen keeps the same key while a sheet is open, so its state survives. */}
         {BaseScreen ? <BaseScreen key={base} go={go} back={back} /> : <div className="p-6">Missing screen: {baseName}</div>}
         {isModal && Screen && (

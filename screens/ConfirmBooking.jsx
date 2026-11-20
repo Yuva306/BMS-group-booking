@@ -45,13 +45,13 @@ function ConfirmBooking({ go, back }) {
   const priceInfo = sel.seats.map((id) => `${id} ${fmt(seatPrice(id))}`).join(" + ") + ` = ${fmt(ticketTotal)}`;
   return (
     <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start relative size-full" data-node-id="45:11508" data-name="Confirm booking">
-      <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col h-[55.045px] items-start relative shrink-0 w-[393px]" data-node-id="45:11615" data-name="Status bar">
-        <div className="absolute content-stretch flex h-[39.519px] items-center justify-between left-[31.69px] px-[21.556px] top-[8.34px] w-[350.285px]" data-node-id="45:11616" data-name="StatusBar/iOS">
+      <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col h-[55.045px] items-start relative shrink-0 w-full" data-node-id="45:11615" data-name="Status bar">
+        <div className="absolute content-stretch flex h-[39.519px] items-center justify-between left-[31.69px] px-[21.556px] top-[8.34px] right-[33.38px]" data-node-id="45:11616" data-name="StatusBar/iOS">
           <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[normal] not-italic relative shrink-0 text-[17.514px] text-black whitespace-nowrap" data-node-id="I45:11616;1:38">
             6:22
           </p>
         </div>
-        <div className="absolute h-[20.016px] left-[281.9px] top-[20.02px] w-[78.397px]" data-node-id="45:11617" data-name="Cellular Wi-Fi battery">
+        <div className="absolute h-[20.016px] right-[32.7px] top-[20.02px] w-[78.397px]" data-node-id="45:11617" data-name="Cellular Wi-Fi battery">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <img alt="" className="absolute h-[4258.33%] left-[-359.57%] max-w-none top-[-100%] w-[502.13%]" src={imgCellularWiFiBattery} />
           </div>

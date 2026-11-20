@@ -13,19 +13,19 @@ function ContactDetails({ go, back }) {
   };
   return (
     <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start relative size-full" data-node-id="45:11714" data-name="Screen/07 Contact Details">
-      <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col h-[55.045px] items-start relative shrink-0 w-[393px]" data-node-id="45:11735" data-name="Status bar">
-        <div className="absolute content-stretch flex h-[39.519px] items-center justify-between left-[31.69px] px-[21.556px] top-[8.34px] w-[350.285px]" data-node-id="45:11736" data-name="StatusBar/iOS">
+      <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col h-[55.045px] items-start relative shrink-0 w-full" data-node-id="45:11735" data-name="Status bar">
+        <div className="absolute content-stretch flex h-[39.519px] items-center justify-between left-[31.69px] px-[21.556px] top-[8.34px] right-[33.38px]" data-node-id="45:11736" data-name="StatusBar/iOS">
           <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[normal] not-italic relative shrink-0 text-[17.514px] text-black whitespace-nowrap" data-node-id="I45:11736;1:38">
             6:22
           </p>
         </div>
-        <div className="absolute h-[20.016px] left-[281.9px] top-[20.02px] w-[78.397px]" data-node-id="45:11737" data-name="Cellular Wi-Fi battery">
+        <div className="absolute h-[20.016px] right-[32.7px] top-[20.02px] w-[78.397px]" data-node-id="45:11737" data-name="Cellular Wi-Fi battery">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <img alt="" className="absolute h-[4258.33%] left-[-359.57%] max-w-none top-[-100%] w-[502.13%]" src={imgCellularWiFiBattery} />
           </div>
         </div>
       </div>
-      <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start pb-[12px] pt-[6.66px] relative shrink-0 w-[393px]" data-node-id="45:11738" data-name="Cinema header">
+      <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start pb-[12px] pt-[6.66px] relative shrink-0 w-full" data-node-id="45:11738" data-name="Cinema header">
         <div className="content-stretch flex flex-col items-start px-[12px] relative shrink-0 w-full" data-node-id="45:11739" data-name="Row · Cinema header 1 flow">
           <div className="content-stretch flex gap-[12px] items-center relative shrink-0 w-[179.958px]" data-node-id="45:11740" data-name="Row · Cinema header 1">
             <div className="relative shrink-0 size-[20px] cursor-pointer" data-node-id="45:11741" data-name="chevron-left" onClick={back}>
@@ -52,7 +52,7 @@ function ContactDetails({ go, back }) {
             <div className="bg-[var(--surface\/white,white)] border border-[#dbdbdb] border-solid content-stretch flex h-[48px] items-center overflow-clip px-[16px] relative rounded-[10px] shrink-0 w-full" data-node-id="45:11719" data-name="input">
               <input type="email" className="[word-break:break-word] font-['Roboto'] font-normal leading-[normal] relative shrink-0 text-[12px] text-[color:var(--text\/secondary,#6b6b6b)] w-full bg-transparent outline-none border-0 p-0 placeholder:text-[color:var(--text\/secondary,#6b6b6b)]" data-node-id="45:11720" style={{ fontVariationSettings: '"wdth" 100' }} value={email} onChange={(e) => setEmail(e.target.value)} />
             </div>
-            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[normal] relative shrink-0 text-[12px] text-[color:var(--text\/secondary,#6b6b6b)] w-[358px]" data-node-id="45:11721" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[normal] relative shrink-0 text-[12px] text-[color:var(--text\/secondary,#6b6b6b)] w-full" data-node-id="45:11721" style={{ fontVariationSettings: '"wdth" 100' }}>
               To access the ticket(s) on other devices, Login with this E-mail
             </p>
           </div>
@@ -63,7 +63,7 @@ function ContactDetails({ go, back }) {
             <div className="bg-[var(--surface\/white,white)] border border-[#dbdbdb] border-solid content-stretch flex h-[48px] items-center overflow-clip px-[16px] relative rounded-[10px] shrink-0 w-full" data-node-id="45:11724" data-name="input">
               <input type="tel" inputMode="numeric" maxLength={10} placeholder="eg: 91480XXXXX" className="[word-break:break-word] font-['Roboto'] font-normal leading-[normal] relative shrink-0 text-[12px] text-[color:var(--text\/secondary,#6b6b6b)] w-full bg-transparent outline-none border-0 p-0 placeholder:text-[color:var(--text\/secondary,#6b6b6b)]" data-node-id="45:11725" style={{ fontVariationSettings: '"wdth" 100' }} value={mobile} onChange={(e) => setMobile(e.target.value.replace(/\D/g, ""))} />
             </div>
-            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[normal] relative shrink-0 text-[12px] text-[color:var(--text\/secondary,#6b6b6b)] w-[358px]" data-node-id="45:11726" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[normal] relative shrink-0 text-[12px] text-[color:var(--text\/secondary,#6b6b6b)] w-full" data-node-id="45:11726" style={{ fontVariationSettings: '"wdth" 100' }}>
               This Number will only be used for sending ticket(s)
             </p>
           </div>

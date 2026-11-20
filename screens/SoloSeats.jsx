@@ -5,7 +5,7 @@ const imgGroup = "assets/SoloSeats/5dbee.svg";
 
 function SoloShowtime({ go, count, onGroup }) {
   return (
-    <div className="relative shrink-0 w-[393px] h-[86.575px]">
+    <div className="relative shrink-0 w-full h-[86.575px]">
       <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start relative size-full" data-node-id="50:13682" data-name="Showtime">
         <p className="[word-break:break-word] absolute font-['Roboto'] font-normal leading-[1.18] left-[16.65px] text-[13.319px] text-[color:var(--text\/secondary,#6b6b6b)] top-[13.32px] whitespace-nowrap" data-node-id="50:13683" style={{ fontVariationSettings: '"wdth" 100' }}>
           Fri, 20 Nov

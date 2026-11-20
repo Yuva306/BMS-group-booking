@@ -222,7 +222,7 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
           )}
         </div>
       </div>
-      <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-h-px py-[24px] relative w-full" data-node-id="48:573" data-name="Seat map">
+      <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-h-fit py-[24px] relative w-full" data-node-id="48:573" data-name="Seat map">
         <SeatRows seats={displaySeats} onSeat={onSeat} owners={vpSaved.owners} />
         <CinemaScreen />
       </div>

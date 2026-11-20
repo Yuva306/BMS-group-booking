@@ -13,8 +13,8 @@ function PrebookIntro({ go, back, bare }) {
   return (
     <div className="relative size-full" style={bare ? { background: "transparent" } : undefined}>
       {!bare && <NowShowingBody />}
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-[rgba(0,0,0,0.6)] h-[851px] left-[calc(50%-0.5px)] top-1/2 w-[392px] cursor-pointer" data-node-id="50:13784" onClick={back}/>
-      <div className="absolute bg-[var(--surface\/white,white)] bottom-[-0.76px] content-stretch flex flex-col gap-[24px] items-center left-0 overflow-clip pt-[6.672px] px-[16px] rounded-tl-[16.68px] rounded-tr-[16.68px] w-[393px]" data-node-id="50:13762" data-name="Seat count sheet">
+      <div className="absolute bg-[rgba(0,0,0,0.6)] inset-0 cursor-pointer" data-node-id="50:13784" onClick={back}/>
+      <div className="absolute bg-[var(--surface\/white,white)] bottom-[-0.76px] content-stretch flex flex-col gap-[24px] items-center left-0 overflow-clip pt-[6.672px] px-[16px] rounded-tl-[16.68px] rounded-tr-[16.68px] w-full" data-node-id="50:13762" data-name="Seat count sheet">
         <div className="content-stretch flex flex-col items-center pl-[2.321px] relative shrink-0 w-full cursor-pointer" data-node-id="50:13763" data-name="Sheet grab handle flow" onClick={back}>
           <div className="bg-[var(--border\/default,#dcdcdc)] h-[5.004px] relative rounded-[3.336px] shrink-0 w-[31.692px]" data-node-id="50:13764" data-name="Sheet grab handle" />
         </div>

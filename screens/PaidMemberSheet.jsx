@@ -29,9 +29,9 @@ function PaidMemberSheet({ back, bare }) {
   return (
     <div className="relative size-full" data-node-id="45:12365" style={bare ? { background: "transparent" } : undefined}>
       {!bare && <GroupSeatsBody />}
-      <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-[rgba(0,0,0,0.6)] h-[851px] left-[calc(50%-0.5px)] top-[calc(50%-0.68px)] w-[392px] cursor-pointer" data-node-id="45:12583" onClick={back} />
-      <div className="absolute left-0 top-[27.408px] w-[393px] h-[824.352px]">
-        <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col gap-[16px] items-center overflow-clip pb-[48px] pt-[6.672px] px-[16px] relative rounded-tl-[16.68px] rounded-tr-[16.68px] size-full" data-node-id="45:12584" data-name="Seat count sheet">
+      <div className="absolute bg-[rgba(0,0,0,0.6)] inset-0 cursor-pointer" data-node-id="45:12583" onClick={back} />
+      <div className="absolute left-0 bottom-0 w-full max-h-full overflow-y-auto">
+        <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col gap-[16px] items-center overflow-clip pb-[48px] pt-[6.672px] px-[16px] relative rounded-tl-[16.68px] rounded-tr-[16.68px] w-full" data-node-id="45:12584" data-name="Seat count sheet">
           <div className="content-stretch flex flex-col items-center pl-[2.321px] relative shrink-0 w-full cursor-pointer" data-node-id="45:12585" data-name="Sheet grab handle flow" onClick={back}>
             <div className="bg-[var(--border\/default,#dcdcdc)] h-[5.004px] relative rounded-[3.336px] shrink-0 w-[31.692px]" data-node-id="45:12586" data-name="Sheet grab handle" />
           </div>
