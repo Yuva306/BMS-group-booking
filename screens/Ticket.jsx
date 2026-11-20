@@ -41,6 +41,13 @@ function ReceiptRow({ id, label, value, pt, valueW, primary }) {
 
 function TicketBase({ expanded, go, back }) {
   const { paid } = sessionBooking();
+  // Per-seat breakdown under Net Ticket(s) Price (Figma 64:16769). Opened directly, use Figma's example.
+  const [showSeats, setShowSeats] = React.useState(true);
+  const NAMES = { Y: "Yuva", S: "Shwas", A: "Aadi", R: "Rishi", P: "Pranjal" };
+  const payer = NAMES[myInitial()];
+  const seatRows = window.paySelection
+    ? paid.map((id) => ({ id, by: payer, price: "ABC".includes(id[0]) ? 480 : 430 }))
+    : [{ id: "D06", by: "Yuva", price: 430 }, { id: "D07", by: "Rishi", price: 430 }];
   return (
     <div className="bg-[var(--text\/primary,#1a1a1a)] content-stretch flex flex-col items-start relative size-full" data-node-id={expanded ? "45:11754" : "29:116"} data-name="Your ticket">
       <div className="bg-[var(--text\/primary,#1a1a1a)] content-stretch flex h-[58.381px] items-start pl-[31.692px] pr-[32.706px] relative shrink-0 w-full" data-node-id="45:11755" data-name="Status bar">
@@ -225,7 +232,46 @@ function TicketBase({ expanded, go, back }) {
                   </div>
                 </div>
               </div>
-              <ReceiptRow id="45:12332" label="Net Ticket(s) Price" value="₹ 576.28" pt="pt-[17.693px]" />
+              <div className="content-stretch flex flex-col items-start pt-[17.693px] px-[11.676px] relative shrink-0 w-full" data-node-id="64:16857" data-name="Row · Payment receipt 3 flow">
+                <div className="content-stretch flex items-start relative shrink-0 w-full" data-node-id="64:16858">
+                  <div className="content-stretch flex flex-[1_0_0] gap-[4px] items-center min-w-px relative cursor-pointer" data-node-id="64:16859" onClick={() => setShowSeats((v) => !v)}>
+                    <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" data-node-id="64:16860" style={{ fontVariationSettings: '"wdth" 100' }}>
+                      Net Ticket(s) Price
+                    </p>
+                    <div className="flex items-center justify-center relative shrink-0 size-[12px]" data-node-id="64:16896">
+                      <div className={`flex-none ${showSeats ? "rotate-90" : "-rotate-90"}`}>
+                        <div className="relative size-[12px]" data-name="chevron-left">
+                          <img alt="" className="absolute block inset-0 max-w-none size-full" src="assets/Ticket/chevron-left-12.svg" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative" data-node-id="64:16861">
+                    <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] text-right w-full" data-node-id="64:16862" style={{ fontVariationSettings: '"wdth" 100' }}>
+                      ₹ 576.28
+                    </p>
+                  </div>
+                </div>
+              </div>
+              {showSeats && seatRows.map((r) => (
+                <div key={r.id} className="content-stretch flex flex-col items-start pl-[24px] pr-[11.676px] pt-[12px] relative shrink-0 w-full" data-node-id="64:16889" data-name="Seat price row">
+                  <div className="content-stretch flex items-start relative shrink-0 w-full">
+                    <div className="[word-break:break-word] content-stretch flex flex-[1_0_0] flex-col font-['Roboto'] font-normal items-start leading-[1.18] min-w-px relative text-[color:var(--text\/secondary,#6b6b6b)]">
+                      <p className="relative shrink-0 text-[11.676px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+                        {`Seat ${r.id}`}
+                      </p>
+                      <p className="relative shrink-0 text-[9px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+                        {`Paid by ${r.by}`}
+                      </p>
+                    </div>
+                    <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative">
+                      <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] text-right w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+                        {`₹ ${r.price}`}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
               <ReceiptRow id="45:12338" label="GST" value="₹ 103.72" pt="pt-[11.02px]" valueW="w-[88.405px]" />
               <ReceiptRow id="45:12344" label="Convenience fee" value="₹ 80.24" pt="pt-[9.352px]" />
               <ReceiptRow id="45:12350" label="Discount" value="- ₹ 500.00" pt="pt-[9.352px]" valueW="w-[88.405px]" />
