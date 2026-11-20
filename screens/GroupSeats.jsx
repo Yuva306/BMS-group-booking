@@ -4,13 +4,13 @@
 const imgShare07 = "assets/GroupSeats/2d122.svg";
 const imgChevronLeft = "assets/GroupSeats/e324a.svg";
 
-function GroupHeader({ onMembers, w = "w-full", compact = false }) {
+function GroupHeader({ onMembers, w = "w-full", compact = false, bg = "bg-[var(--surface\\/subtle,#f4f4f4)]" }) {
   const { joined } = useGroupSim();
   // Figma avatar stack is P R A S Y (Y = you, last). Show only friends who have joined.
   const shown = ["P", "R", "A", "S"].filter((l) => FRIENDS.slice(0, joined).some((f) => f[0] === l));
   return (
     <div className={`relative shrink-0 ${w} ${compact ? "h-[88px]" : "h-[96px]"}`}>
-      <div className={`bg-[var(--surface\\/subtle,#f4f4f4)] content-stretch drop-shadow-[0px_3.336px_3.336px_rgba(0,0,0,0.1)] flex flex-col gap-[8px] items-center ${compact ? "px-[16px] py-[12px]" : "p-[16px]"} relative rounded-[6.672px] size-full`} data-node-id="37:8490" data-name="Select seats">
+      <div className={`${bg} content-stretch drop-shadow-[0px_3.336px_3.336px_rgba(0,0,0,0.1)] flex flex-col gap-[8px] items-center ${compact ? "px-[16px] py-[12px]" : "p-[16px]"} relative rounded-[6.672px] size-full`} data-node-id="37:8490" data-name="Select seats">
         <div className="content-stretch flex gap-[10px] items-center justify-center relative shrink-0 w-full" data-node-id="37:8540">
           <p className="[word-break:break-word] flex-[1_0_0] font-['Roboto'] font-medium leading-[1.18] min-w-px relative text-[20.016px] text-[color:var(--text\/primary,#1a1a1a)]" data-node-id="37:8491" style={{ fontVariationSettings: '"wdth" 100' }}>
             Yuva’s movie plan

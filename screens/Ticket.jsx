@@ -39,10 +39,194 @@ function ReceiptRow({ id, label, value, pt, valueW, primary }) {
   );
 }
 
+// The ticket card + payment receipt, shared by "Your ticket" and the all-booked View Prebooking (68:17031).
+function TicketCard({ expanded, onToggle, paid, seatRows, className = "pl-[30.024px] pr-[29.371px]", receiptBg = "bg-[var(--surface\\/subtle,#f4f4f4)]", cutouts = [imgCutoutEdge, imgCutoutEdge1] }) {
+  const [showSeats, setShowSeats] = React.useState(true);
+  return (
+    <div className={`content-stretch flex flex-col items-start relative shrink-0 w-full ${className}`} data-node-id="45:12274" data-name="Ticket content">
+      <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start overflow-clip relative rounded-[13.344px] shrink-0 w-full" data-node-id="45:12275" data-name="Ticket">
+        <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="45:12276" data-name="Row · Ticket 1 flow">
+          <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="45:12277" data-name="Row · Ticket 1">
+            <div className="content-stretch flex flex-col items-start mb-[-150.122px] relative shrink-0 w-full" data-node-id="45:12278" data-name="Movie details flow">
+              <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start overflow-clip pt-[13.344px] relative shrink-0 w-full" data-node-id="45:12279" data-name="Movie details">
+                <div className="content-stretch flex gap-[16.68px] items-start pl-[16.68px] pr-[6.005px] relative shrink-0 w-full" data-node-id="45:12280" data-name="Film information">
+                  <div className="content-stretch flex flex-col h-[93.409px] items-start pt-[80.065px] relative rounded-[6.672px] shrink-0 w-[61.717px]" data-node-id="45:12281" data-name="The Odyssey poster">
+                    <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[6.672px]">
+                      <img alt="" className="absolute h-[140.49%] left-[1.06%] max-w-none top-[-6.66%] w-[98.21%]" src={imgTheOdysseyPoster} />
+                    </div>
+                    <div className="content-stretch flex flex-col items-start relative shrink-0 w-full cursor-pointer" data-node-id="45:12282" data-name="Watch trailer badge flow" onClick={notInPrototype("The trailer")}>
+                      <div className="bg-[var(--brand\/red,#f5405c)] content-stretch flex flex-col items-start pb-[1.676px] pt-[1.668px] relative rounded-[1.668px] shrink-0 w-full" data-node-id="45:12283" data-name="Watch trailer badge">
+                        <div className="content-stretch flex flex-col items-start pl-[5.004px] pr-[7.712px] relative shrink-0 w-full" data-node-id="45:12284" data-name="Watch Trailer flow">
+                          <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[8.34px] text-[color:var(--surface\/white,white)] w-full" data-node-id="45:12285" style={{ fontVariationSettings: '"wdth" 100' }}>
+                            Watch Trailer
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px pt-[1.668px] relative" data-node-id="45:12286" data-name="Film title and session">
+                    <p className="[word-break:break-word] font-['Roboto'] font-bold leading-[1.18] relative shrink-0 text-[16.68px] text-[color:var(--text\/primary,#1a1a1a)] w-full" data-node-id="45:12287" style={{ fontVariationSettings: '"wdth" 100' }}>
+                      Wildwood
+                    </p>
+                    <div className="content-stretch flex flex-col items-start pt-[6.688px] relative shrink-0 w-full" data-node-id="45:12288" data-name="Language">
+                      <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] w-full" data-node-id="45:12289" style={{ fontVariationSettings: '"wdth" 100' }}>
+                        English, 2D
+                      </p>
+                    </div>
+                    <div className="content-stretch flex flex-col items-start pt-[7.684px] relative shrink-0 w-full" data-node-id="45:12290" data-name="Screening date">
+                      <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] w-full" data-node-id="45:12291" style={{ fontVariationSettings: '"wdth" 100' }}>
+                        Fri, 20 Nov, 2026 | 09:00 AM
+                      </p>
+                    </div>
+                    <div className="content-stretch flex flex-col items-start pt-[7.684px] relative shrink-0 w-full" data-node-id="45:12292" data-name="Cinema venue">
+                      <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] w-full" data-node-id="45:12293" style={{ fontVariationSettings: '"wdth" 100' }}>
+                        INOX: R-City, Ghatkopar
+                      </p>
+                    </div>
+                  </div>
+                  <div className="content-stretch flex flex-col items-start pt-[20.726px] relative shrink-0" data-node-id="45:12294" data-name="Ticket format">
+                    <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0" data-node-id="45:12295" data-name="M-Ticket rotated label">
+                      <div className="col-1 flex h-[46px] items-center justify-center ml-0 mt-0 relative row-1 w-[14px]" data-node-id="45:12296">
+                        <div className="-rotate-90 flex-none">
+                          <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+                            M-Ticket
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="content-stretch flex flex-col items-start pt-[13.344px] px-[16.68px] relative shrink-0 w-full" data-node-id="45:12297" data-name="Toggle ticket details">
+                  <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col h-[30.024px] items-start pb-[8.684px] pt-[8.34px] relative rounded-[15.012px] shrink-0 w-full cursor-pointer" data-node-id="45:12298" data-name="Hide details" onClick={onToggle}>
+                    <div className="content-stretch flex flex-col items-start pl-[25.021px] pr-[25.02px] relative shrink-0 w-full" data-node-id="45:12299" data-name="Tap to hide details flow">
+                      <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.842px] text-[color:var(--text\/secondary,#6b6b6b)] text-center w-full" data-node-id="45:12300" style={{ fontVariationSettings: '"wdth" 100' }}>
+                        {expanded ? "Tap to hide details" : "Tap to view details"}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="content-stretch flex flex-col h-[150.122px] items-start pt-[124.268px] relative shrink-0 w-full pointer-events-none" data-node-id="45:12301" data-name="Ticket perforation flow">
+              <div className="content-stretch flex h-[18.348px] items-start justify-between relative shrink-0 w-full" data-node-id="45:12302" data-name="Ticket perforation">
+                <div className="h-[18.348px] relative shrink-0 w-[0.01px]" data-node-id="45:12303" data-name="Cutout edge">
+                  <div className="absolute inset-[0_-9.17px]">
+                    <img alt="" className="block max-w-none size-full" src={cutouts[0]} />
+                  </div>
+                </div>
+                <div className="h-[18.348px] relative shrink-0 w-[0.01px]" data-node-id="45:12305" data-name="Cutout edge">
+                  <div className="absolute inset-[0_-9.17px]">
+                    <img alt="" className="block max-w-none size-full" src={cutouts[1]} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="45:12307" data-name="Admission details flow">
+          <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start overflow-clip pb-[14.356px] pt-[26.688px] relative shrink-0 w-full" data-node-id="45:12308" data-name="Admission details">
+            <div className="content-stretch flex flex-col items-start pl-[25.021px] pr-[25.02px] relative shrink-0 w-full" data-node-id="45:12309" data-name="2 Ticket(s) flow">
+              <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] text-center w-full" data-node-id="45:12310" style={{ fontVariationSettings: '"wdth" 100' }}>
+                {`${paid.length} Ticket(s)`}
+              </p>
+            </div>
+            <div className="content-stretch flex flex-col items-start pl-[25.021px] pr-[25.02px] pt-[11.02px] relative shrink-0 w-full" data-node-id="45:12311" data-name="SCREEN 6 flow">
+              <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[15.012px] text-[color:var(--text\/primary,#1a1a1a)] text-center w-full" data-node-id="45:12312" style={{ fontVariationSettings: '"wdth" 100' }}>
+                SCREEN 6
+              </p>
+            </div>
+            <div className="content-stretch flex flex-col items-start pl-[25.021px] pr-[25.02px] pt-[3.684px] relative shrink-0 w-full" data-node-id="45:12313" data-name="QR-E11,E10 flow">
+              <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.25] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] text-center w-full" data-node-id="45:12314" style={{ fontVariationSettings: '"wdth" 100' }}>
+                {paid.join(", ")}
+              </p>
+            </div>
+            <div className="content-stretch flex flex-col items-center pl-[0.001px] pt-[23.697px] relative shrink-0 w-full" data-node-id="45:12315" data-name="Ticket QR image flow">
+              <div className="relative shrink-0 size-[120.098px]" data-node-id="45:12316" data-name="Ticket QR image">
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  <img alt="" className="absolute h-[709.72%] left-[-113.89%] max-w-none top-[-312.5%] w-[327.78%]" src={imgTicketQrImage} />
+                </div>
+              </div>
+            </div>
+            <div className="content-stretch flex flex-col items-start pt-[11.676px] px-[16.68px] relative shrink-0 w-full" data-node-id="45:12317" data-name="BOOKING ID: TUAECKP flow">
+              <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/primary,#1a1a1a)] text-center w-full" data-node-id="45:12318" style={{ fontVariationSettings: '"wdth" 100' }}>
+                BOOKING ID: TUAECKP
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      {expanded && (
+        <div className={`${receiptBg} content-stretch flex flex-col items-start overflow-clip pb-[12.688px] relative rounded-[13.34px] shrink-0 w-full`} data-node-id="45:12323" data-name="Payment receipt">
+          <div className="content-stretch flex flex-col items-start px-[8.34px] relative shrink-0 w-full" data-node-id="45:12324" data-name="Receipt divider flow">
+            <div className="bg-[var(--border\/default,#dcdcdc)] h-[1.001px] relative shrink-0 w-full" data-node-id="45:12325" data-name="Receipt divider" />
+          </div>
+          <div className="content-stretch flex flex-col items-start pl-[11.676px] pr-[11.675px] pt-[24.02px] relative shrink-0 w-full" data-node-id="45:12326" data-name="Row · Payment receipt 2 flow">
+            <div className="content-stretch flex items-start relative shrink-0 w-full" data-node-id="45:12327" data-name="Row · Payment receipt 2">
+              <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative" data-node-id="45:12328" data-name="Total Amount alignment">
+                <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/primary,#1a1a1a)] w-full" data-node-id="45:12329" style={{ fontVariationSettings: '"wdth" 100' }}>
+                  Total Amount
+                </p>
+              </div>
+              <div className="content-stretch flex flex-col items-start relative shrink-0 w-[80.065px]" data-node-id="45:12330" data-name="₹ 283.84 alignment">
+                <p className="[word-break:break-word] font-['Roboto'] font-normal h-[14px] leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/primary,#1a1a1a)] text-right w-[80.065px]" data-node-id="45:12331" style={{ fontVariationSettings: '"wdth" 100' }}>
+                  ₹ 283.84
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="content-stretch flex flex-col items-start pt-[17.693px] px-[11.676px] relative shrink-0 w-full" data-node-id="64:16857" data-name="Row · Payment receipt 3 flow">
+            <div className="content-stretch flex items-start relative shrink-0 w-full" data-node-id="64:16858">
+              <div className="content-stretch flex flex-[1_0_0] gap-[4px] items-center min-w-px relative cursor-pointer" data-node-id="64:16859" onClick={() => setShowSeats((v) => !v)}>
+                <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" data-node-id="64:16860" style={{ fontVariationSettings: '"wdth" 100' }}>
+                  Net Ticket(s) Price
+                </p>
+                <div className="flex items-center justify-center relative shrink-0 size-[12px]" data-node-id="64:16896">
+                  <div className={`flex-none ${showSeats ? "rotate-90" : "-rotate-90"}`}>
+                    <div className="relative size-[12px]" data-name="chevron-left">
+                      <img alt="" className="absolute block inset-0 max-w-none size-full" src="assets/Ticket/chevron-left-12.svg" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative" data-node-id="64:16861">
+                <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] text-right w-full" data-node-id="64:16862" style={{ fontVariationSettings: '"wdth" 100' }}>
+                  ₹ 576.28
+                </p>
+              </div>
+            </div>
+          </div>
+          {showSeats && seatRows.map((r) => (
+            <div key={r.id} className="content-stretch flex flex-col items-start pl-[24px] pr-[11.676px] pt-[12px] relative shrink-0 w-full" data-node-id="64:16889" data-name="Seat price row">
+              <div className="content-stretch flex items-start relative shrink-0 w-full">
+                <div className="[word-break:break-word] content-stretch flex flex-[1_0_0] flex-col font-['Roboto'] font-normal items-start leading-[1.18] min-w-px relative text-[color:var(--text\/secondary,#6b6b6b)]">
+                  <p className="relative shrink-0 text-[11.676px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+                    {`Seat ${r.id}`}
+                  </p>
+                  <p className="relative shrink-0 text-[9px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+                    {`Paid by ${r.by}`}
+                  </p>
+                </div>
+                <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative">
+                  <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] text-right w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
+                    {`₹ ${r.price}`}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+          <ReceiptRow id="45:12338" label="GST" value="₹ 103.72" pt="pt-[11.02px]" valueW="w-[88.405px]" />
+          <ReceiptRow id="45:12344" label="Convenience fee" value="₹ 80.24" pt="pt-[9.352px]" />
+          <ReceiptRow id="45:12350" label="Discount" value="- ₹ 500.00" pt="pt-[9.352px]" valueW="w-[88.405px]" />
+          <ReceiptRow id="45:12356" label="Offer Processing Fee" value="+ ₹ 23.60" pt="pt-[9.352px]" valueW="w-[88.405px]" />
+        </div>
+      )}
+    </div>
+  );
+}
+
 function TicketBase({ expanded, go, back }) {
   const { paid } = sessionBooking();
   // Per-seat breakdown under Net Ticket(s) Price (Figma 64:16769). Opened directly, use Figma's example.
-  const [showSeats, setShowSeats] = React.useState(true);
   const NAMES = { Y: "Yuva", S: "Shwas", A: "Aadi", R: "Rishi", P: "Pranjal" };
   const payer = NAMES[myInitial()];
   const seatRows = window.paySelection
@@ -101,189 +285,13 @@ function TicketBase({ expanded, go, back }) {
         </div>
       </div>
       <div className="content-stretch flex flex-col flex-[1_0_0] items-start min-h-0 overflow-y-auto overflow-x-hidden relative scroll-body pb-[24px] w-full" data-node-id="45:12273" data-name="Ticket area">
-        <div className="content-stretch flex flex-col items-start pl-[30.024px] pr-[29.371px] relative shrink-0 w-full" data-node-id="45:12274" data-name="Ticket content">
-          <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start overflow-clip relative rounded-[13.344px] shrink-0 w-full" data-node-id="45:12275" data-name="Ticket">
-            <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="45:12276" data-name="Row · Ticket 1 flow">
-              <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="45:12277" data-name="Row · Ticket 1">
-                <div className="content-stretch flex flex-col items-start mb-[-150.122px] relative shrink-0 w-full" data-node-id="45:12278" data-name="Movie details flow">
-                  <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start overflow-clip pt-[13.344px] relative shrink-0 w-full" data-node-id="45:12279" data-name="Movie details">
-                    <div className="content-stretch flex gap-[16.68px] items-start pl-[16.68px] pr-[6.005px] relative shrink-0 w-full" data-node-id="45:12280" data-name="Film information">
-                      <div className="content-stretch flex flex-col h-[93.409px] items-start pt-[80.065px] relative rounded-[6.672px] shrink-0 w-[61.717px]" data-node-id="45:12281" data-name="The Odyssey poster">
-                        <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[6.672px]">
-                          <img alt="" className="absolute h-[140.49%] left-[1.06%] max-w-none top-[-6.66%] w-[98.21%]" src={imgTheOdysseyPoster} />
-                        </div>
-                        <div className="content-stretch flex flex-col items-start relative shrink-0 w-full cursor-pointer" data-node-id="45:12282" data-name="Watch trailer badge flow" onClick={notInPrototype("The trailer")}>
-                          <div className="bg-[var(--brand\/red,#f5405c)] content-stretch flex flex-col items-start pb-[1.676px] pt-[1.668px] relative rounded-[1.668px] shrink-0 w-full" data-node-id="45:12283" data-name="Watch trailer badge">
-                            <div className="content-stretch flex flex-col items-start pl-[5.004px] pr-[7.712px] relative shrink-0 w-full" data-node-id="45:12284" data-name="Watch Trailer flow">
-                              <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[8.34px] text-[color:var(--surface\/white,white)] w-full" data-node-id="45:12285" style={{ fontVariationSettings: '"wdth" 100' }}>
-                                Watch Trailer
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px pt-[1.668px] relative" data-node-id="45:12286" data-name="Film title and session">
-                        <p className="[word-break:break-word] font-['Roboto'] font-bold leading-[1.18] relative shrink-0 text-[16.68px] text-[color:var(--text\/primary,#1a1a1a)] w-full" data-node-id="45:12287" style={{ fontVariationSettings: '"wdth" 100' }}>
-                          Wildwood
-                        </p>
-                        <div className="content-stretch flex flex-col items-start pt-[6.688px] relative shrink-0 w-full" data-node-id="45:12288" data-name="Language">
-                          <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] w-full" data-node-id="45:12289" style={{ fontVariationSettings: '"wdth" 100' }}>
-                            English, 2D
-                          </p>
-                        </div>
-                        <div className="content-stretch flex flex-col items-start pt-[7.684px] relative shrink-0 w-full" data-node-id="45:12290" data-name="Screening date">
-                          <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] w-full" data-node-id="45:12291" style={{ fontVariationSettings: '"wdth" 100' }}>
-                            Fri, 20 Nov, 2026 | 09:00 AM
-                          </p>
-                        </div>
-                        <div className="content-stretch flex flex-col items-start pt-[7.684px] relative shrink-0 w-full" data-node-id="45:12292" data-name="Cinema venue">
-                          <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] w-full" data-node-id="45:12293" style={{ fontVariationSettings: '"wdth" 100' }}>
-                            INOX: R-City, Ghatkopar
-                          </p>
-                        </div>
-                      </div>
-                      <div className="content-stretch flex flex-col items-start pt-[20.726px] relative shrink-0" data-node-id="45:12294" data-name="Ticket format">
-                        <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid leading-[0] place-items-start relative shrink-0" data-node-id="45:12295" data-name="M-Ticket rotated label">
-                          <div className="col-1 flex h-[46px] items-center justify-center ml-0 mt-0 relative row-1 w-[14px]" data-node-id="45:12296">
-                            <div className="-rotate-90 flex-none">
-                              <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
-                                M-Ticket
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="content-stretch flex flex-col items-start pt-[13.344px] px-[16.68px] relative shrink-0 w-full" data-node-id="45:12297" data-name="Toggle ticket details">
-                      <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col h-[30.024px] items-start pb-[8.684px] pt-[8.34px] relative rounded-[15.012px] shrink-0 w-full cursor-pointer" data-node-id="45:12298" data-name="Hide details" onClick={expanded ? back : () => go("ticketExpanded")}>
-                        <div className="content-stretch flex flex-col items-start pl-[25.021px] pr-[25.02px] relative shrink-0 w-full" data-node-id="45:12299" data-name="Tap to hide details flow">
-                          <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.842px] text-[color:var(--text\/secondary,#6b6b6b)] text-center w-full" data-node-id="45:12300" style={{ fontVariationSettings: '"wdth" 100' }}>
-                            {expanded ? "Tap to hide details" : "Tap to view details"}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="content-stretch flex flex-col h-[150.122px] items-start pt-[124.268px] relative shrink-0 w-full pointer-events-none" data-node-id="45:12301" data-name="Ticket perforation flow">
-                  <div className="content-stretch flex h-[18.348px] items-start justify-between relative shrink-0 w-full" data-node-id="45:12302" data-name="Ticket perforation">
-                    <div className="h-[18.348px] relative shrink-0 w-[0.01px]" data-node-id="45:12303" data-name="Cutout edge">
-                      <div className="absolute inset-[0_-9.17px]">
-                        <img alt="" className="block max-w-none size-full" src={imgCutoutEdge} />
-                      </div>
-                    </div>
-                    <div className="h-[18.348px] relative shrink-0 w-[0.01px]" data-node-id="45:12305" data-name="Cutout edge">
-                      <div className="absolute inset-[0_-9.17px]">
-                        <img alt="" className="block max-w-none size-full" src={imgCutoutEdge1} />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="content-stretch flex flex-col items-start relative shrink-0 w-full" data-node-id="45:12307" data-name="Admission details flow">
-              <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start overflow-clip pb-[14.356px] pt-[26.688px] relative shrink-0 w-full" data-node-id="45:12308" data-name="Admission details">
-                <div className="content-stretch flex flex-col items-start pl-[25.021px] pr-[25.02px] relative shrink-0 w-full" data-node-id="45:12309" data-name="2 Ticket(s) flow">
-                  <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] text-center w-full" data-node-id="45:12310" style={{ fontVariationSettings: '"wdth" 100' }}>
-                    {`${paid.length} Ticket(s)`}
-                  </p>
-                </div>
-                <div className="content-stretch flex flex-col items-start pl-[25.021px] pr-[25.02px] pt-[11.02px] relative shrink-0 w-full" data-node-id="45:12311" data-name="SCREEN 6 flow">
-                  <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[15.012px] text-[color:var(--text\/primary,#1a1a1a)] text-center w-full" data-node-id="45:12312" style={{ fontVariationSettings: '"wdth" 100' }}>
-                    SCREEN 6
-                  </p>
-                </div>
-                <div className="content-stretch flex flex-col items-start pl-[25.021px] pr-[25.02px] pt-[3.684px] relative shrink-0 w-full" data-node-id="45:12313" data-name="QR-E11,E10 flow">
-                  <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.25] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] text-center w-full" data-node-id="45:12314" style={{ fontVariationSettings: '"wdth" 100' }}>
-                    {paid.join(", ")}
-                  </p>
-                </div>
-                <div className="content-stretch flex flex-col items-center pl-[0.001px] pt-[23.697px] relative shrink-0 w-full" data-node-id="45:12315" data-name="Ticket QR image flow">
-                  <div className="relative shrink-0 size-[120.098px]" data-node-id="45:12316" data-name="Ticket QR image">
-                    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                      <img alt="" className="absolute h-[709.72%] left-[-113.89%] max-w-none top-[-312.5%] w-[327.78%]" src={imgTicketQrImage} />
-                    </div>
-                  </div>
-                </div>
-                <div className="content-stretch flex flex-col items-start pt-[11.676px] px-[16.68px] relative shrink-0 w-full" data-node-id="45:12317" data-name="BOOKING ID: TUAECKP flow">
-                  <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/primary,#1a1a1a)] text-center w-full" data-node-id="45:12318" style={{ fontVariationSettings: '"wdth" 100' }}>
-                    BOOKING ID: TUAECKP
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          {expanded && (
-            <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start overflow-clip pb-[12.688px] relative rounded-[13.34px] shrink-0 w-full" data-node-id="45:12323" data-name="Payment receipt">
-              <div className="content-stretch flex flex-col items-start px-[8.34px] relative shrink-0 w-full" data-node-id="45:12324" data-name="Receipt divider flow">
-                <div className="bg-[var(--border\/default,#dcdcdc)] h-[1.001px] relative shrink-0 w-full" data-node-id="45:12325" data-name="Receipt divider" />
-              </div>
-              <div className="content-stretch flex flex-col items-start pl-[11.676px] pr-[11.675px] pt-[24.02px] relative shrink-0 w-full" data-node-id="45:12326" data-name="Row · Payment receipt 2 flow">
-                <div className="content-stretch flex items-start relative shrink-0 w-full" data-node-id="45:12327" data-name="Row · Payment receipt 2">
-                  <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative" data-node-id="45:12328" data-name="Total Amount alignment">
-                    <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/primary,#1a1a1a)] w-full" data-node-id="45:12329" style={{ fontVariationSettings: '"wdth" 100' }}>
-                      Total Amount
-                    </p>
-                  </div>
-                  <div className="content-stretch flex flex-col items-start relative shrink-0 w-[80.065px]" data-node-id="45:12330" data-name="₹ 283.84 alignment">
-                    <p className="[word-break:break-word] font-['Roboto'] font-normal h-[14px] leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/primary,#1a1a1a)] text-right w-[80.065px]" data-node-id="45:12331" style={{ fontVariationSettings: '"wdth" 100' }}>
-                      ₹ 283.84
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="content-stretch flex flex-col items-start pt-[17.693px] px-[11.676px] relative shrink-0 w-full" data-node-id="64:16857" data-name="Row · Payment receipt 3 flow">
-                <div className="content-stretch flex items-start relative shrink-0 w-full" data-node-id="64:16858">
-                  <div className="content-stretch flex flex-[1_0_0] gap-[4px] items-center min-w-px relative cursor-pointer" data-node-id="64:16859" onClick={() => setShowSeats((v) => !v)}>
-                    <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" data-node-id="64:16860" style={{ fontVariationSettings: '"wdth" 100' }}>
-                      Net Ticket(s) Price
-                    </p>
-                    <div className="flex items-center justify-center relative shrink-0 size-[12px]" data-node-id="64:16896">
-                      <div className={`flex-none ${showSeats ? "rotate-90" : "-rotate-90"}`}>
-                        <div className="relative size-[12px]" data-name="chevron-left">
-                          <img alt="" className="absolute block inset-0 max-w-none size-full" src="assets/Ticket/chevron-left-12.svg" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative" data-node-id="64:16861">
-                    <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] text-right w-full" data-node-id="64:16862" style={{ fontVariationSettings: '"wdth" 100' }}>
-                      ₹ 576.28
-                    </p>
-                  </div>
-                </div>
-              </div>
-              {showSeats && seatRows.map((r) => (
-                <div key={r.id} className="content-stretch flex flex-col items-start pl-[24px] pr-[11.676px] pt-[12px] relative shrink-0 w-full" data-node-id="64:16889" data-name="Seat price row">
-                  <div className="content-stretch flex items-start relative shrink-0 w-full">
-                    <div className="[word-break:break-word] content-stretch flex flex-[1_0_0] flex-col font-['Roboto'] font-normal items-start leading-[1.18] min-w-px relative text-[color:var(--text\/secondary,#6b6b6b)]">
-                      <p className="relative shrink-0 text-[11.676px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
-                        {`Seat ${r.id}`}
-                      </p>
-                      <p className="relative shrink-0 text-[9px] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
-                        {`Paid by ${r.by}`}
-                      </p>
-                    </div>
-                    <div className="content-stretch flex flex-[1_0_0] flex-col items-start min-w-px relative">
-                      <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.676px] text-[color:var(--text\/secondary,#6b6b6b)] text-right w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
-                        {`₹ ${r.price}`}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              <ReceiptRow id="45:12338" label="GST" value="₹ 103.72" pt="pt-[11.02px]" valueW="w-[88.405px]" />
-              <ReceiptRow id="45:12344" label="Convenience fee" value="₹ 80.24" pt="pt-[9.352px]" />
-              <ReceiptRow id="45:12350" label="Discount" value="- ₹ 500.00" pt="pt-[9.352px]" valueW="w-[88.405px]" />
-              <ReceiptRow id="45:12356" label="Offer Processing Fee" value="+ ₹ 23.60" pt="pt-[9.352px]" valueW="w-[88.405px]" />
-            </div>
-          )}
-        </div>
+        <TicketCard expanded={expanded} onToggle={expanded ? back : () => go("ticketExpanded")} paid={paid} seatRows={seatRows} />
       </div>
     </div>
   );
 }
 
+window.TicketCard = TicketCard;
 window.Screens.Ticket = (p) => <TicketBase expanded={false} {...p} />;
 window.Screens.TicketExpanded = (p) => <TicketBase expanded {...p} />;
 })();

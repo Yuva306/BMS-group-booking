@@ -9,6 +9,7 @@ const imgCellularWiFiBattery = "assets/ViewPrebooking/efaa2.png";
 const imgChevronLeft = "assets/ViewPrebooking/0becb.svg";
 const imgClock = "assets/ViewPrebooking/5fbd0.svg";
 const imgEdit01 = "assets/ViewPrebooking/dfa52.svg";
+const BLUE = "bg-[var(--status\\/blue-bg,#e8f0fe)]";
 
 const VP_SEATS = {
   base: { ...GROUP_SEATS, D: "aaassfffff" },
@@ -98,7 +99,7 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
         vpSaved.owners[id] = pool.pop() || myInitial();
         setSeats((x) => setSeat(x, id, "f"));
         setRepick((r) => ({ ...r, released: r.released - 1, pool }));
-      } else if (state === "r") toast("You’ve already booked this seat");
+      } else if (state === "r") toast("Booked seats cannot be repicked");
       else toast("You can only swap for a seat in the same row category");
       return;
     }
@@ -111,6 +112,16 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
   const heldList = Object.entries(seats).flatMap(([row, st]) =>
     st.split("").map((c, i) => (/[fyr]/.test(c) ? row + String(i + 1).padStart(2, "0") : null)).filter(Boolean)
   );
+  // Every secured seat paid for: the seat map gives way to the group's ticket (Figma 68:17031).
+  const allBooked = variant === "paid" && !repick && countSeats(seats, "fy") === 0 && countSeats(seats, "r") > 0;
+  const [ticketOpen, setTicketOpen] = React.useState(true);
+  const NAMES = { Y: "Yuva", S: "Shwas", A: "Aadi", R: "Rishi", P: "Pranjal" };
+  const mine = window.paySelection ? window.paySelection.seats : [];
+  const bookedRows = heldList.map((id) => ({
+    id,
+    by: NAMES[mine.includes(id) ? myInitial() : vpSaved.owners[id]] || NAMES[myInitial()],
+    price: "ABC".includes(id[0]) ? 480 : 430,
+  }));
   return (
     <div className="bg-white content-stretch flex flex-col items-start relative size-full" data-node-id={nodeId} data-name="View Prebooking">
       <div className="content-stretch flex items-start pl-[31.633px] pr-[33.382px] relative shrink-0 w-full" data-node-id="48:514" data-name="Status bar">
@@ -147,9 +158,9 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
           </div>
         </div>
       </div>
-      <div className="content-stretch flex flex-col flex-[1_0_0] items-start min-h-0 overflow-y-auto overflow-x-hidden relative w-full scroll-body" data-name="Scrollable body">
-        <GroupHeader w="w-full" compact onMembers={() => go(variant === "paid" ? "paidSheet" : "memberSheet")} />
-        <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start pb-[12px] px-[16px] relative shrink-0 w-full" data-node-id="48:551" data-name="Showtime">
+      <div className={`content-stretch flex flex-col flex-[1_0_0] items-start min-h-0 overflow-y-auto overflow-x-hidden relative w-full scroll-body ${allBooked ? BLUE : ""}`} data-node-id={allBooked ? "68:17031" : undefined} data-name="Scrollable body">
+        <GroupHeader w="w-full" compact bg={allBooked ? BLUE : undefined} onMembers={() => go(variant === "paid" ? "paidSheet" : "memberSheet")} />
+        <div className={`${allBooked ? BLUE + " py-[12px]" : "bg-[var(--surface\\/subtle,#f4f4f4)] pb-[12px]"} content-stretch flex flex-col items-start px-[16px] relative shrink-0 w-full`} data-node-id={allBooked ? "68:17065" : "48:551"} data-name="Showtime">
           <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start overflow-clip relative rounded-[8.34px] shrink-0 w-full" data-node-id="45:10645" data-name="Movie and show details">
             <div className="content-stretch flex flex-col items-start pb-[11.71px] pl-[16.68px] pr-[15.012px] pt-[10.008px] relative shrink-0 w-full" data-node-id="45:10646" data-name="Movie and session">
               <div className="[word-break:break-word] content-stretch flex items-start justify-between leading-[1.25] relative shrink-0 text-[16.68px] text-[color:var(--text\/primary,#1a1a1a)] w-full" data-node-id="45:10647" data-name="Movie title and ticket count">
@@ -157,7 +168,7 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
                   Wildwood
                 </p>
                 <p className="font-['Roboto'] font-normal relative shrink-0 whitespace-nowrap" data-node-id="45:10649" style={{ fontVariationSettings: '"wdth" 100' }}>
-                  5
+                  {heldList.length}
                 </p>
               </div>
               <div className="content-stretch flex items-start pt-[0.684px] relative shrink-0 w-full" data-node-id="45:10650" data-name="Session and mobile ticket">
@@ -175,6 +186,9 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
             </div>
           </div>
         </div>
+        {allBooked ? (
+          <TicketCard expanded={ticketOpen} onToggle={() => setTicketOpen((v) => !v)} paid={heldList} seatRows={bookedRows} className={`${BLUE} px-[36px] py-[12px]`} receiptBg="bg-[var(--surface\\/white,white)]" cutouts={["assets/AllBooked/3f234.svg", "assets/AllBooked/05d99.svg"]} />
+        ) : (<>
         <div className="content-stretch flex items-center justify-between pt-[12px] px-[16px] relative shrink-0 w-full h-[32px]" data-node-id="45:10669">
           <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="45:10668">
             Select seats to pay for.
@@ -227,8 +241,10 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
           <SeatRows seats={displaySeats} onSeat={onSeat} owners={vpSaved.owners} />
           <CinemaScreen />
         </div>
+        </>)}
       </div>
       {/* Footer - Figma 61:14159 (autopay off) / 61:16692 (autopay on): timer, autopay, proceed. */}
+      {!allBooked && (
       <div className="bg-white content-stretch flex flex-col gap-[12px] items-start pb-[42px] pt-[12px] px-[16px] relative shrink-0 w-full" data-node-id={autopay ? "61:16692" : "61:14159"} data-name="Select seats flow">
         <div className="bg-[var(--status\/yellow-bg,#fff6dd)] content-stretch flex gap-[8px] items-start overflow-clip px-[16px] py-[12px] relative rounded-[10px] shrink-0 w-full" data-node-id="61:15615" data-name="timer chip">
           <div className="relative shrink-0 size-[16px]" data-name="clock">
@@ -275,6 +291,7 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
           )}
         </div>
       </div>
+      )}
     </div>
   );
 }

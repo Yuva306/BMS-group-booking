@@ -18,7 +18,7 @@
        header and footer stay fixed and only its body (.scroll-body) scrolls. */
     .device { position: relative; overflow: hidden; background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,.25);
               width: min(100vw, 440px); height: min(calc(100dvh - 48px), 956px); }
-    .device > * { height: 100%; }
+    .device > *:not(.proto-toast) { height: 100%; }
     .scroll-body { scrollbar-width: none; overscroll-behavior: contain; }
     .scroll-body::-webkit-scrollbar { display: none; }
     @media (max-width: 440px), (max-height: 700px) {
