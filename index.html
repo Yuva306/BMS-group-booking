@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BookMyShow Group Booking</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="vendor/tailwind.js"></script>
+  <script src="vendor/react.js"></script>
+  <script src="vendor/react-dom.js"></script>
+  <script src="vendor/babel.js"></script>
+  <style>
+    html, body { margin: 0; background: #e5e5e5; font-family: 'Roboto', sans-serif; }
+    #root { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px 0; box-sizing: border-box; }
+    .device { position: relative; overflow: hidden; background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,.25);  }
+    .hot { position: absolute; cursor: pointer; z-index: 50; }
+    .hot:hover { background: rgba(0,0,0,0.04); }
+    .proto-toast { position: absolute; left: 50%; bottom: 100px; transform: translateX(-50%); z-index: 200; background: rgba(26,26,26,.92); color: #fff; font: 13px 'Roboto', sans-serif; padding: 10px 16px; border-radius: 20px; max-width: 320px; text-align: center; pointer-events: none; }
+    .screen-picker { position: fixed; top: 12px; left: 12px; font: 12px 'Roboto', sans-serif; z-index: 100; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script>window.Screens = {};</script>
+  <script type="text/babel" data-presets="react" src="screens/shared.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/seatmap.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/NowShowing.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/PrebookIntro.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/MovieDetails.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/SeatCount.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/BwfIntro.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/GroupInvite.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/GroupSeats.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/MemberSheet.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/SoloSeats.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/PrebookSeats.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/SeatsSecured.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/ViewPrebooking.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/ViewPrebookingSelected.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/ContactDetails.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/ConfirmBooking.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/SeatsBooked.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/ViewPrebookingPaid.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/PaidMemberSheet.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/Ticket.jsx"></script>
+  <script type="text/babel" data-presets="react" src="screens/TicketExpanded.jsx"></script>
+  <script type="text/babel" data-presets="react" src="app.jsx"></script>
+</body>
+</html>
