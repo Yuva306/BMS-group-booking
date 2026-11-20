@@ -9,10 +9,10 @@ const imgCurrencyRupee = "assets/PrebookIntro/a531f.svg";
 const imgTicket01 = "assets/PrebookIntro/1b7dc.svg";
 const imgSwitchHorizontal02 = "assets/PrebookIntro/583eb.svg";
 
-function PrebookIntro({ go, back }) {
+function PrebookIntro({ go, back, bare }) {
   return (
-    <div className="relative size-full">
-      <NowShowingBody />
+    <div className="relative size-full" style={bare ? { background: "transparent" } : undefined}>
+      {!bare && <NowShowingBody />}
       <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-[rgba(0,0,0,0.6)] h-[851px] left-[calc(50%-0.5px)] top-1/2 w-[392px] cursor-pointer" data-node-id="50:13784" onClick={back}/>
       <div className="absolute bg-[var(--surface\/white,white)] bottom-[-0.76px] content-stretch flex flex-col gap-[24px] items-center left-0 overflow-clip pt-[6.672px] px-[16px] rounded-tl-[16.68px] rounded-tr-[16.68px] w-[393px]" data-node-id="50:13762" data-name="Seat count sheet">
         <div className="content-stretch flex flex-col items-center pl-[2.321px] relative shrink-0 w-full cursor-pointer" data-node-id="50:13763" data-name="Sheet grab handle flow" onClick={back}>
@@ -60,7 +60,7 @@ function PrebookIntro({ go, back }) {
               <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgFrame7} />
             </div>
             <p className="[word-break:break-word] flex-[1_0_0] font-['Roboto'] font-normal leading-[1.18] min-w-px relative text-[11.654px] text-[color:var(--text\/primary,#1a1a1a)]" data-node-id="50:13790" style={{ fontVariationSettings: '"wdth" 100' }}>
-              Your seats are held for 2 hours, safe from anyone else booking them.
+              Your seats are secured for 2 hours, safe from anyone else booking them.
             </p>
           </div>
           <div className="content-stretch flex gap-[12px] items-center justify-center px-[16px] relative shrink-0 w-full" data-node-id="50:13791">

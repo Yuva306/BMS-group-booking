@@ -42,7 +42,7 @@ const SEAT_WRAP = {
   "E03": "pl-[0.001px] w-[19.98px]", "E06": "pl-[0.001px] w-[19.98px]",
 };
 
-function Seat({ id, num, state, colors, onSeat }) {
+function Seat({ id, num, state, colors, onSeat, owner }) {
   const wrap = SEAT_WRAP[id] || "w-[19.979px]";
   if (state === "x") {
     const icon = num === "01" ? SM.imgGroup : SM.imgGroup1;
@@ -67,22 +67,24 @@ function Seat({ id, num, state, colors, onSeat }) {
     );
   }
   const fill = (colors && colors[state]) || SEAT_FILL[state];
+  // A picked seat (you / friend / booked) is drawn as a circle with its owner's initial.
+  const picked = fill && state !== "s" && owner;
   const box = fill
-    ? `${fill} content-stretch flex items-center justify-center relative rounded-[2.497px] shrink-0 size-[19.979px]`
+    ? `${fill} content-stretch flex items-center justify-center relative ${picked ? "rounded-full" : "rounded-[2.497px]"} shrink-0 size-[19.979px]`
     : "border-[0.624px] border-[var(--status\\/green,#1d9a4c)] border-solid content-stretch flex items-center justify-center relative rounded-[2.497px] shrink-0 size-[19.979px]";
   const text = fill ? "text-[color:var(--surface\\/white,white)]" : "text-[color:var(--status\\/green,#1d9a4c)]";
   return (
     <div className={`content-stretch flex flex-col items-start relative shrink-0 ${wrap}`}>
       <div className={box + (onSeat ? " cursor-pointer" : "")} data-name={`Seat ${id}`} onClick={onSeat ? () => onSeat(id, state) : undefined}>
         <p className={`[word-break:break-word] font-['Inter'] font-medium leading-[normal] not-italic relative shrink-0 text-[9.989px] ${text} whitespace-nowrap`}>
-          {num}
+          {picked ? owner : num}
         </p>
       </div>
     </div>
   );
 }
 
-function SeatRow({ row, states, colors, onSeat }) {
+function SeatRow({ row, states, colors, onSeat, owners }) {
   const L = ROW_LAYOUT[row];
   const first = 1;
   return (
@@ -97,7 +99,7 @@ function SeatRow({ row, states, colors, onSeat }) {
           <div className={`content-stretch flex items-start justify-between relative shrink-0 ${L.w}`}>
             {states.split("").map((st, i) => {
               const num = String(i + first).padStart(2, "0");
-              return <Seat key={i} id={row + num} num={num} state={st} colors={colors} onSeat={onSeat} />;
+              return <Seat key={i} id={row + num} num={num} state={st} colors={colors} onSeat={onSeat} owner={owners && owners[row + num]} />;
             })}
           </div>
         </div>
@@ -122,16 +124,16 @@ function TierLabel({ text, pr, w, pt }) {
 }
 
 // Seat rows + tier labels (without the outer "Seat map" wrapper or the screen graphic).
-function SeatRows({ seats, colors, onSeat }) {
+function SeatRows({ seats, colors, onSeat, owners = seatOwnersFor(seats) }) {
   return (
     <>
       <TierLabel text="₹ 480 ROYAL ROWS" pr="pr-[226.053px]" w="w-[117px]" />
-      <SeatRow row="A" states={seats.A} colors={colors} onSeat={onSeat} />
-      <SeatRow row="B" states={seats.B} colors={colors} onSeat={onSeat} />
-      <SeatRow row="C" states={seats.C} colors={colors} onSeat={onSeat} />
+      <SeatRow row="A" states={seats.A} colors={colors} onSeat={onSeat} owners={owners} />
+      <SeatRow row="B" states={seats.B} colors={colors} onSeat={onSeat} owners={owners} />
+      <SeatRow row="C" states={seats.C} colors={colors} onSeat={onSeat} owners={owners} />
       <TierLabel text="₹ 430 EXECUTIVE ROWS" pr="pr-[198.053px]" w="w-[145px]" pt="pt-[9.989px]" />
-      <SeatRow row="D" states={seats.D} colors={colors} onSeat={onSeat} />
-      <SeatRow row="E" states={seats.E} colors={colors} onSeat={onSeat} />
+      <SeatRow row="D" states={seats.D} colors={colors} onSeat={onSeat} owners={owners} />
+      <SeatRow row="E" states={seats.E} colors={colors} onSeat={onSeat} owners={owners} />
     </>
   );
 }
@@ -166,7 +168,29 @@ const GROUP_SEATS = {
   E: "xxssaasaaa",
 };
 
+// Who you are in this session: Yuva (host) or Rishi (joined with a code).
+const myInitial = () => (window.joinedAs === "Rishi" ? "R" : "Y");
+// Figma's default picks: you on D06–D07, friends on D08 (Shwas), D09 (Aadi), D10 (Rishi), E08 (Pranjal).
+const DEFAULT_OWNERS = { D06: "Y", D07: "Y", D08: "S", D09: "A", D10: "R", E08: "P" };
+// Fallback owners for seat maps that don't track them: your seats get your initial, others the Figma defaults.
+function seatOwnersFor(seats) {
+  const o = {};
+  Object.entries(seats || {}).forEach(([row, st]) =>
+    st.split("").forEach((c, i) => {
+      const id = row + String(i + 1).padStart(2, "0");
+      if (c === "y") o[id] = myInitial();
+      else if ("fr".includes(c)) o[id] = DEFAULT_OWNERS[id] || myInitial();
+    })
+  );
+  return o;
+}
+const MAX_SEATS = 10;
+
 window.SeatRows = SeatRows;
+window.myInitial = myInitial;
+window.DEFAULT_OWNERS = DEFAULT_OWNERS;
+window.seatOwnersFor = seatOwnersFor;
+window.MAX_SEATS = MAX_SEATS;
 window.setSeat = setSeat;
 window.countSeats = countSeats;
 window.CinemaScreen = CinemaScreen;

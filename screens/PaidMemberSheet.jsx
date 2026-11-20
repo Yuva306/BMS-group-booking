@@ -23,12 +23,12 @@ function MemberRow({ id, letter, name, last }) {
   );
 }
 
-function PaidMemberSheet({ back }) {
+function PaidMemberSheet({ back, bare }) {
   const left = useCountdown("1:24:18");
   const { paid, remaining } = sessionBooking();
   return (
-    <div className="relative size-full" data-node-id="45:12365">
-      <GroupSeatsBody />
+    <div className="relative size-full" data-node-id="45:12365" style={bare ? { background: "transparent" } : undefined}>
+      {!bare && <GroupSeatsBody />}
       <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-[rgba(0,0,0,0.6)] h-[851px] left-[calc(50%-0.5px)] top-[calc(50%-0.68px)] w-[392px] cursor-pointer" data-node-id="45:12583" onClick={back} />
       <div className="absolute left-0 top-[27.408px] w-[393px] h-[824.352px]">
         <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col gap-[16px] items-center overflow-clip pb-[48px] pt-[6.672px] px-[16px] relative rounded-tl-[16.68px] rounded-tr-[16.68px] size-full" data-node-id="45:12584" data-name="Seat count sheet">
@@ -115,7 +115,7 @@ function PaidMemberSheet({ back }) {
               <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgClock} />
             </div>
             <div className="[word-break:break-word] font-['Roboto'] font-medium leading-[0] relative shrink-0 text-[0px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="45:13028" style={{ fontVariationSettings: '"wdth" 100' }}>
-              <p className="leading-[normal] mb-0 text-[12px]">{left} left before your hold expires</p>
+              <p className="leading-[normal] mb-0 text-[12px]">{left} left on your secured seats</p>
               <p className="font-['Inter'] font-normal leading-[1.4] not-italic text-[12px]">{seatsWord(remaining.length)} still to be booked.</p>
             </div>
           </div>

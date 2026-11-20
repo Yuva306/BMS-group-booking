@@ -6,10 +6,10 @@ const imgImage2 = "assets/GroupInvite/d704f.png";
 const imgEdit01 = "assets/GroupInvite/dfa52.svg";
 const imgShare07 = "assets/GroupInvite/2d122.svg";
 
-function GroupInvite({ go, back }) {
+function GroupInvite({ go, back, bare }) {
   return (
-    <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start relative size-full" data-node-id="28:7313" data-name="How many seats?">
-      <SheetBackdropSeats />
+    <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start relative size-full" data-node-id="28:7313" data-name="How many seats?" style={bare ? { background: "transparent" } : undefined}>
+      {!bare && <SheetBackdropSeats />}
       <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-[rgba(0,0,0,0.6)] h-[851px] left-[calc(50%-0.5px)] top-[calc(50%-0.68px)] w-[392px] cursor-pointer" data-node-id="37:8856" onClick={back} />
       <div className="absolute left-0 top-[410.051px] w-[393px] h-[441.709px]">
         <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col gap-[16px] items-center overflow-clip pt-[6.672px] px-[16px] relative rounded-tl-[16.68px] rounded-tr-[16.68px] size-full" data-node-id="28:7493" data-name="Seat count sheet">
@@ -59,7 +59,7 @@ function GroupInvite({ go, back }) {
             </div>
           </div>
           <div className="bg-white content-stretch flex flex-col items-start pb-[42px] relative shrink-0 w-full" data-node-id="28:7540" data-name="Select seats flow">
-            <div className="bg-[var(--brand\/red,#f5405c)] content-stretch drop-shadow-[0px_3.336px_3.336px_rgba(0,0,0,0.1)] flex h-[40.033px] items-center justify-center relative rounded-[6.672px] shrink-0 w-full cursor-pointer" data-node-id="37:7950" data-name="Select seats" onClick={() => { window.joinedAs = null; go("groupSeats"); }}>
+            <div className="bg-[var(--brand\/red,#f5405c)] content-stretch drop-shadow-[0px_3.336px_3.336px_rgba(0,0,0,0.1)] flex h-[40.033px] items-center justify-center relative rounded-[6.672px] shrink-0 w-full cursor-pointer" data-node-id="37:7950" data-name="Select seats" onClick={() => { window.joinedAs = null; startGroupSim(); go("groupSeats"); }}>
               <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.2] relative shrink-0 text-[15.012px] text-[color:var(--surface\/white,white)] whitespace-nowrap" data-node-id="I37:7950;1:26" style={{ fontVariationSettings: '"wdth" 100' }}>
                 Start group booking
               </p>

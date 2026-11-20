@@ -7,10 +7,10 @@ const imgLine1 = "assets/BwfIntro/1924e.svg";
 const imgFrame6 = "assets/BwfIntro/ca0cc.svg";
 const imgFrame7 = "assets/BwfIntro/d8121.svg";
 
-function BwfIntro({ go, back }) {
+function BwfIntro({ go, back, bare }) {
   return (
-    <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start relative size-full" data-node-id="37:9134" data-name="How many seats?">
-      <SheetBackdropSeats />
+    <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start relative size-full" data-node-id="37:9134" data-name="How many seats?" style={bare ? { background: "transparent" } : undefined}>
+      {!bare && <SheetBackdropSeats />}
       <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-[rgba(0,0,0,0.6)] h-[851px] left-[calc(50%-0.5px)] top-[calc(50%-0.68px)] w-[392px] cursor-pointer" data-node-id="37:9333" onClick={back} />
       <div className="absolute left-0 top-[432.044px] w-[393px] h-[419.716px]">
         <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col gap-[16px] items-center overflow-clip pt-[6.672px] px-[16px] relative rounded-tl-[16.68px] rounded-tr-[16.68px] size-full" data-node-id="37:9419" data-name="Seat count sheet">

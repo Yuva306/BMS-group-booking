@@ -76,8 +76,16 @@ function SoloSeats({ go, back }) {
   const [seats, setSeats] = React.useState(SOLO_SEATS);
   const count = countSeats(seats, "f");
   const onSeat = (id, state) => {
-    if (state === "a") setSeats((s) => setSeat(s, id, "f"));
-    else if (state === "f") setSeats((s) => setSeat(s, id, "a"));
+    if (state === "a") {
+      // Check against the latest state so rapid taps can't exceed the cap.
+      setSeats((s) => {
+        if (countSeats(s, "f") >= MAX_SEATS) {
+          setTimeout(() => toast(`You can select up to ${MAX_SEATS} seats`));
+          return s;
+        }
+        return setSeat(s, id, "f");
+      });
+    } else if (state === "f") setSeats((s) => setSeat(s, id, "a"));
     else seatFeedback(state);
   };
   return (
@@ -86,10 +94,11 @@ function SoloSeats({ go, back }) {
         showtime={<SoloShowtime go={go} count={count} onGroup={() => { window.joinedAs = null; go("groupInvite"); }} />}
         legend={<SoloLegend />}
         seats={seats}
+        owners={Object.fromEntries(seatIdsOf(seats, "f").map((id) => [id, myInitial()]))}
         onSeat={onSeat}
         proceedLabel={`Proceed booking ${count} seat${count === 1 ? "" : "s"}`}
         onBack={back}
-        onSecure={() => { window.prebookContext = { mode: "solo", seats }; go("prebookIntro"); }}
+        onSecure={() => { window.prebookContext = { mode: "solo", seats, owners: Object.fromEntries(seatIdsOf(seats, "f").map((id) => [id, myInitial()])) }; go("prebookIntro"); }}
         onProceed={() => { setPaySelection(seatIdsOf(seats, "f"), false); go("contact"); }}
       />
     </div>

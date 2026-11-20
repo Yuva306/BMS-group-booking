@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="40" height="24" viewBox="0 0 40 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Toggle Switch">
+<rect x="0.5" y="0.5" width="39" height="23" rx="11.5" fill="#F4F4F4"/>
+<rect x="0.5" y="0.5" width="39" height="23" rx="11.5" stroke="#6B6B6B"/>
+<path id="Knob" d="M19.9861 12C19.9861 16.9706 15.9566 21 10.9861 21C6.01552 21 1.98608 16.9706 1.98608 12C1.98608 7.02944 6.01552 3 10.9861 3C15.9566 3 19.9861 7.02944 19.9861 12Z" fill="#6B6B6B"/>
+</g>
+</svg>

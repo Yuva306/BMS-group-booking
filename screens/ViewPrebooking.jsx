@@ -16,10 +16,28 @@ const VP_SEATS = {
   paid: { ...GROUP_SEATS, D: "aaassrrfff" },
 };
 
-// Held-seat state per variant, kept across visits.
-const vpSaved = { ...VP_SEATS };
+// Held-seat state per variant, kept across visits. `owners` = who picked each secured seat.
+const vpSaved = { ...VP_SEATS, owners: { ...DEFAULT_OWNERS } };
+// Seat layout with nobody's picks, used to rebuild from what was actually prebooked.
+const VP_EMPTY = { ...GROUP_SEATS, D: "aaassaaaaa", E: "xxssaasaaa" };
+
+// When a new prebooking was made this session, rebuild the secured seats and their owners from it.
+function vpSync() {
+  const sel = window.prebookSelection;
+  if (!sel || vpSaved.key === sel) return;
+  vpSaved.key = sel;
+  let base = VP_EMPTY;
+  for (const id of sel) base = setSeat(base, id, "f");
+  const owners = Object.fromEntries(sel.map((id) => [id, (window.prebookOwners || {})[id] || myInitial()]));
+  // "Selected" variant starts with your own secured seats picked to pay for.
+  let selected = base;
+  for (const id of sel) if (owners[id] === myInitial()) selected = setSeat(selected, id, "y");
+  Object.assign(vpSaved, { base, selected, owners });
+  window.lastHeld = base;
+}
 
 function ViewPrebookingBase({ variant, nodeId, go, back }) {
+  vpSync();
   const left = useCountdown("1:24:18");
   // Paid view: rebuild from this session — paid seats red, the rest of your held seats green.
   const paidStart = () => {
@@ -37,6 +55,15 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
   }, [seats]);
   const setSeats = (fn) => setSeatsState((x) => (vpSaved[variant] = fn(x)));
   const picked = countSeats(seats, "y");
+  // Autopay: off -> opens the Set Autopay sheet; on -> turns it off.
+  const autopay = !!window.autopayOn;
+  const toggleAutopay = () => {
+    if (autopay) {
+      window.autopayOn = false;
+      setSeatsState((x) => ({ ...x })); // re-render
+      toast("Autopay turned off");
+    } else go("setAutopay");
+  };
   // Repick mode: tap a held (green) seat to release it, then an available seat of the same
   // price tier to take its place. Other tiers are greyed out like sold seats.
   const [repick, setRepick] = React.useState(null); // { start: seats, released: number } while repicking
@@ -61,12 +88,16 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
   const onSeat = (id, state) => {
     if (repick) {
       if (state === "f") {
+        const owner = vpSaved.owners[id];
+        delete vpSaved.owners[id];
         setSeats((x) => setSeat(x, id, "a"));
-        setRepick((r) => ({ ...r, released: r.released + 1 }));
+        setRepick((r) => ({ ...r, released: r.released + 1, pool: [...(r.pool || []), owner] }));
       } else if (state === "a" && heldTiers.has(tierOf(id[0]))) {
         if (!repick.released) return toast("Release one of your green seats first");
+        const pool = [...(repick.pool || [])];
+        vpSaved.owners[id] = pool.pop() || myInitial();
         setSeats((x) => setSeat(x, id, "f"));
-        setRepick((r) => ({ ...r, released: r.released - 1 }));
+        setRepick((r) => ({ ...r, released: r.released - 1, pool }));
       } else if (state === "r") toast("You’ve already booked this seat");
       else toast("You can only swap for a seat in the same row category");
       return;
@@ -75,7 +106,7 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
     else if (state === "y") setSeats((x) => setSeat(x, id, "f"));
     else if (state === "r") toast("You’ve already booked this seat");
     else if (state === "s") toast("This seat is unavailable");
-    else toast("Only your held seats can be paid for here. Use Repick Seats to change them");
+    else toast("Only your secured seats can be paid for here. Use Repick Seats to change them");
   };
   const heldList = Object.entries(seats).flatMap(([row, st]) =>
     st.split("").map((c, i) => (/[fyr]/.test(c) ? row + String(i + 1).padStart(2, "0") : null)).filter(Boolean)
@@ -116,19 +147,8 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
           </div>
         </div>
       </div>
-      <GroupHeader w="w-full" onMembers={() => go(variant === "paid" ? "paidSheet" : "memberSheet")} />
-      <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start px-[16px] relative shrink-0 w-full h-[57px]" data-node-id="45:10634">
-        <div className="bg-[var(--status\/yellow-bg,#fff6dd)] content-stretch flex gap-[8px] items-start overflow-clip px-[16px] py-[12px] relative rounded-[10px] shrink-0 w-full" data-node-id="45:13073" data-name="timer chip">
-          <div className="relative shrink-0 size-[16px]" data-node-id="45:13074" data-name="clock">
-            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgClock} />
-          </div>
-          <div className="[word-break:break-word] font-['Roboto'] font-medium leading-[0] relative shrink-0 text-[0px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="45:13075" style={{ fontVariationSettings: '"wdth" 100' }}>
-            <p className="leading-[normal] mb-0 text-[12px]">{left} left before your hold expires</p>
-            <p className="font-['Inter'] font-normal leading-[1.4] not-italic text-[12px]">{stillToBook}</p>
-          </div>
-        </div>
-      </div>
-      <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start px-[16px] py-[12px] relative shrink-0 w-full" data-node-id="48:551" data-name="Showtime">
+      <GroupHeader w="w-full" compact onMembers={() => go(variant === "paid" ? "paidSheet" : "memberSheet")} />
+      <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start pb-[12px] px-[16px] relative shrink-0 w-full" data-node-id="48:551" data-name="Showtime">
         <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start overflow-clip relative rounded-[8.34px] shrink-0 w-full" data-node-id="45:10645" data-name="Movie and show details">
           <div className="content-stretch flex flex-col items-start pb-[11.71px] pl-[16.68px] pr-[15.012px] pt-[10.008px] relative shrink-0 w-full" data-node-id="45:10646" data-name="Movie and session">
             <div className="[word-break:break-word] content-stretch flex items-start justify-between leading-[1.25] relative shrink-0 text-[16.68px] text-[color:var(--text\/primary,#1a1a1a)] w-full" data-node-id="45:10647" data-name="Movie title and ticket count">
@@ -167,63 +187,91 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
           </div>
         </div>
       </div>
-      <div className="content-stretch flex items-center justify-between pb-[8px] pt-[24px] px-[16px] relative shrink-0 w-full" data-node-id="48:560" data-name="Seat legend">
-        <div className="content-stretch flex gap-[16px] items-center relative shrink-0" data-node-id="45:10664">
+      {/* Legend - Figma 61:13992 shows only the secured swatch; repick adds Available/Unavailable, paid adds Booked by you. */}
+      <div className="content-stretch flex items-center justify-between px-[16px] py-[8px] relative shrink-0 w-full" data-node-id="61:13992" data-name="Seat legend">
+        <div className="content-stretch flex gap-[16px] items-center relative shrink-0" data-node-id="61:13993">
           {repick && (
-            <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="48:561" data-name="Available legend">
-              <div className="border-[0.468px] border-[var(--status\/green,#1d9a4c)] border-solid content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-node-id="48:562" data-name="Seat/Cell" />
-              <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="48:563" style={{ fontVariationSettings: '"wdth" 100' }}>
-                Available
-              </p>
-            </div>
+          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="48:561">
+            <div className="border-[0.468px] border-[var(--status\/green,#1d9a4c)] border-solid content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-name="Seat/Cell" />
+            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+              Available
+            </p>
+          </div>
           )}
-          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="48:567" data-name="Selected legend">
-            <div className="bg-[var(--status\/green,#1d9a4c)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-node-id="48:568" data-name="Seat/Cell" />
-            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="45:10655" style={{ fontVariationSettings: '"wdth" 100' }}>
-              Held for the group
+          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="61:13997">
+            <div className="bg-[var(--status\/green,#1d9a4c)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-name="Seat/Cell" />
+            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+              Secured for the group
             </p>
           </div>
           {repick && (
-            <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="48:570" data-name="Sold legend">
-              <div className="bg-[var(--seat\/sold,#e3e3e3)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-node-id="48:571" data-name="Seat/Cell" />
-              <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="48:572" style={{ fontVariationSettings: '"wdth" 100' }}>
-                Unavailable
-              </p>
-            </div>
+          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="48:570">
+            <div className="bg-[var(--seat\/sold,#e3e3e3)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-name="Seat/Cell" />
+            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+              Unavailable
+            </p>
+          </div>
           )}
-          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="45:10675" data-name="Selected legend">
-            <div className="bg-[var(--brand\/red,#f5405c)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-node-id="45:10676" data-name="Seat/Cell" />
-            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="45:10677" style={{ fontVariationSettings: '"wdth" 100' }}>
+          {countSeats(seats, "r") > 0 && (
+          <div className="content-stretch flex gap-[4.995px] items-center relative shrink-0" data-node-id="45:10675">
+            <div className="bg-[var(--brand\/red,#f5405c)] content-stretch flex items-center justify-center relative rounded-[1.873px] shrink-0 size-[14.984px]" data-name="Seat/Cell" />
+            <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[10.822px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
               Booked by you
             </p>
           </div>
+          )}
         </div>
       </div>
       <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-h-px py-[24px] relative w-full" data-node-id="48:573" data-name="Seat map">
-        <SeatRows seats={displaySeats} onSeat={onSeat} />
+        <SeatRows seats={displaySeats} onSeat={onSeat} owners={vpSaved.owners} />
         <CinemaScreen />
       </div>
-      <div className={`content-stretch flex flex-col ${variant === "paid" ? "gap-[12px] " : "h-[88px] "}items-start pb-[42px] px-[16px] relative shrink-0 w-full`} data-node-id={variant === "paid" ? "45:12123" : picked ? "45:10907" : "48:726"} data-name="Select seats flow">
+      {/* Footer - Figma 61:14159 (autopay off) / 61:16692 (autopay on): timer, autopay, proceed. */}
+      <div className="bg-white content-stretch flex flex-col gap-[12px] items-start pb-[42px] pt-[12px] px-[16px] relative shrink-0 w-full" data-node-id={autopay ? "61:16692" : "61:14159"} data-name="Select seats flow">
+        <div className="bg-[var(--status\/yellow-bg,#fff6dd)] content-stretch flex gap-[8px] items-start overflow-clip px-[16px] py-[12px] relative rounded-[10px] shrink-0 w-full" data-node-id="61:15615" data-name="timer chip">
+          <div className="relative shrink-0 size-[16px]" data-name="clock">
+            <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgClock} />
+          </div>
+          <div className="[word-break:break-word] font-['Roboto'] font-medium leading-[0] relative shrink-0 text-[0px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+            <p className="leading-[normal] mb-0 text-[12px]">{left} left on your secured seats</p>
+            <p className="font-['Inter'] font-normal leading-[1.4] not-italic text-[12px]">{stillToBook}</p>
+          </div>
+        </div>
+        <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start overflow-clip relative rounded-[8.34px] shrink-0 w-full" data-node-id="61:14885" data-name="Autopay">
+          <div className="content-stretch flex flex-col items-start justify-center pb-[11.71px] pl-[16.68px] pr-[15.012px] pt-[10.008px] relative shrink-0 w-full">
+            <div className="content-stretch flex items-center justify-between relative shrink-0 w-full">
+              <p className="[word-break:break-word] flex-[1_0_0] font-['Inter'] font-normal leading-[1.4] min-w-px not-italic relative text-[14px] text-[color:var(--text\/primary,#1a1a1a)]" data-node-id="62:16761">
+                Autopay to book all seats if time runs out
+              </p>
+              <button className="block cursor-pointer h-[24px] relative shrink-0 w-[40px] p-0 border-0 bg-transparent" data-node-id={autopay ? "61:16700" : "61:14889"} data-name="Toggle Switch" aria-label="Autopay" aria-pressed={autopay} onClick={toggleAutopay}>
+                <img alt="" className="absolute block inset-0 max-w-none size-full" src={autopay ? "assets/Autopay/toggle-on.svg" : "assets/Autopay/toggle-off.svg"} />
+              </button>
+            </div>
+          </div>
+        </div>
+        {/* Paid variant: View Tickets sits beside Proceed booking so the seat map keeps its height. */}
+        <div className="grid grid-flow-col auto-cols-fr gap-[12px] relative shrink-0 w-full">
         {picked ? (
-          <div className="bg-[var(--brand\/red,#f5405c)] content-stretch drop-shadow-[0px_3.336px_3.336px_rgba(0,0,0,0.1)] flex h-[40.033px] items-center justify-center relative rounded-[6.672px] shrink-0 w-full cursor-pointer" data-node-id="45:10908" data-name="Select seats" onClick={() => { if (repick) return toast("Confirm your seats first"); setPaySelection(seatIdsOf(seats, "y"), true); go("contact"); }}>
-            <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.2] relative shrink-0 text-[15.012px] text-[color:var(--surface\/white,white)] whitespace-nowrap" data-node-id="I45:10908;1:26" style={{ fontVariationSettings: '"wdth" 100' }}>
-              {`Proceed booking ${picked} seat${picked === 1 ? "" : "s"}`}
-            </p>
-          </div>
-        ) : (
-          <div className="bg-[var(--border\/default,#dcdcdc)] content-stretch drop-shadow-[0px_3.336px_3.336px_rgba(0,0,0,0.1)] flex h-[40.033px] items-center justify-center relative rounded-[6.672px] shrink-0 w-full cursor-pointer" data-node-id="48:730" data-name="Select seats" onClick={() => toast(repick ? "Confirm your seats first" : "Select the seats you want to pay for")}>
-            <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.2] relative shrink-0 text-[15.012px] text-[color:var(--surface\/white,white)] whitespace-nowrap" data-node-id="I48:730;1:28" style={{ fontVariationSettings: '"wdth" 100' }}>
-              Proceed booking
-            </p>
-          </div>
-        )}
-        {variant === "paid" && (
-          <div className="border border-[var(--brand\/red,#f5405c)] border-solid content-stretch flex h-[40.033px] items-center justify-center px-[12px] relative rounded-[6.672px] shrink-0 w-full cursor-pointer" data-node-id="45:13054" data-name="Select seats" onClick={() => go("ticket")}>
-            <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.2] relative shrink-0 text-[15.012px] text-[color:var(--brand\/red,#f5405c)] whitespace-nowrap" data-node-id="I45:13054;1:26" style={{ fontVariationSettings: '"wdth" 100' }}>
-              View Tickets
-            </p>
-          </div>
-        )}
+            <div className="bg-[var(--brand\/red,#f5405c)] content-stretch drop-shadow-[0px_3.336px_3.336px_rgba(0,0,0,0.1)] flex h-[40.033px] items-center justify-center relative rounded-[6.672px] w-full cursor-pointer" data-node-id="45:10908" data-name="Select seats" onClick={() => { if (repick) return toast("Confirm your seats first"); setPaySelection(seatIdsOf(seats, "y"), true); go("contact"); }}>
+              <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.2] relative shrink-0 text-[15.012px] text-[color:var(--surface\/white,white)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+                {`Proceed booking ${picked} seat${picked === 1 ? "" : "s"}`}
+              </p>
+            </div>
+          ) : (
+            <div className="bg-[var(--border\/default,#dcdcdc)] content-stretch drop-shadow-[0px_3.336px_3.336px_rgba(0,0,0,0.1)] flex h-[40.033px] items-center justify-center relative rounded-[6.672px] w-full cursor-pointer" data-node-id="61:14160" data-name="Select seats" onClick={() => toast(repick ? "Confirm your seats first" : "Select the seats you want to pay for")}>
+              <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.2] relative shrink-0 text-[15.012px] text-[color:var(--surface\/white,white)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+                Proceed booking
+              </p>
+            </div>
+          )}
+          {variant === "paid" && (
+            <div className="border border-[var(--brand\/red,#f5405c)] border-solid content-stretch flex h-[40.033px] items-center justify-center px-[12px] relative rounded-[6.672px] w-full cursor-pointer" data-node-id="45:13054" data-name="Select seats" onClick={() => go("ticket")}>
+              <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.2] relative shrink-0 text-[15.012px] text-[color:var(--brand\/red,#f5405c)] whitespace-nowrap" style={{ fontVariationSettings: '"wdth" 100' }}>
+                View Tickets
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

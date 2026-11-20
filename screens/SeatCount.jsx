@@ -7,7 +7,7 @@ const imgImage2 = "assets/SeatCount/d704f.png";
 const imgChevronLeft = "assets/SeatCount/0becb.svg";
 const imgChevronRight = "assets/SeatCount/ff204.svg";
 
-function SheetBackdropSeats({ header = null, onBack, onSecure, onProceed, showtime, legend, seats = GROUP_SEATS, colors, footer, onSeat, proceedLabel = "Proceed booking 5 seats", proceedDisabled = false } = {}) {
+function SheetBackdropSeats({ header = null, onBack, onSecure, onProceed, showtime, legend, seats = GROUP_SEATS, colors, footer, onSeat, owners, proceedLabel = "Proceed booking 5 seats", proceedDisabled = false } = {}) {
   return (
     <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col h-[850.764px] items-start overflow-clip relative shrink-0 w-[393px]" data-node-id="37:9787" data-name="Select seats">
       <div className="content-stretch flex items-start pl-[31.633px] pr-[33.382px] relative shrink-0 w-full" data-node-id="37:9788" data-name="Status bar">
@@ -105,7 +105,7 @@ function SheetBackdropSeats({ header = null, onBack, onSecure, onProceed, showti
       </div>
       </>)}
       <div className="content-stretch flex flex-[1_0_0] flex-col items-start justify-center min-h-px py-[24px] relative w-full" data-node-id="37:9827" data-name="Seat map">
-        <SeatRows seats={seats} colors={colors} onSeat={onSeat} />
+        <SeatRows seats={seats} colors={colors} onSeat={onSeat} owners={owners || seatOwnersFor(seats)} />
         <CinemaScreen />
       </div>
       {footer || (<>
@@ -162,15 +162,45 @@ function SeatCountRow({ count, setCount }) {
   );
 }
 
-function HowManySeats({ go, back }) {
+function HowManySeats({ go, back, bare }) {
   const [count, setCount] = React.useState(6);
   return (
-    <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start relative size-full" data-node-id="37:9786" data-name="How many seats?">
-      <SheetBackdropSeats />
+    <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start relative size-full" data-node-id="37:9786" data-name="How many seats?" style={bare ? { background: "transparent" } : undefined}>
+      {!bare && <SheetBackdropSeats />}
       <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-[rgba(0,0,0,0.6)] h-[851px] left-[calc(50%-0.5px)] top-[calc(50%-0.68px)] w-[392px] cursor-pointer" data-node-id="37:9985" onClick={back} />
       <div className="absolute bg-[var(--surface\/white,white)] bottom-[0.6px] content-stretch flex flex-col gap-[16px] items-start left-0 overflow-clip pt-[6.672px] rounded-tl-[16.68px] rounded-tr-[16.68px] w-[393px]" data-node-id="37:9986" data-name="Seat count sheet">
         <div className="content-stretch flex flex-col items-center pl-[2.321px] relative shrink-0 w-full cursor-pointer" data-node-id="37:9987" data-name="Sheet grab handle flow" onClick={back}>
           <div className="bg-[var(--border\/default,#dcdcdc)] h-[5.004px] relative rounded-[3.336px] shrink-0 w-[31.692px]" data-node-id="37:9988" data-name="Sheet grab handle" />
+        </div>
+        {/* Figma 59:13933 — "Movie plans with the gang?" banner with Book with friends. */}
+        <div className="content-stretch flex flex-col items-start px-[16px] relative shrink-0 w-full" data-node-id="59:13933">
+          <div className="bg-[#d5f0ff] content-stretch flex gap-[20px] items-center overflow-clip p-[16px] relative rounded-[8.34px] shrink-0 w-full" data-node-id="59:13920">
+            <div className="-translate-x-1/2 absolute contents left-1/2 top-[-18.99px]" data-node-id="59:13921">
+              <div className="-translate-x-1/2 absolute h-[161px] left-[calc(50%-90.5px)] mix-blend-hard-light top-[-18.99px] w-[180px]" data-node-id="59:13922" data-name="image 2">
+                <img alt="" className="absolute inset-0 max-w-none object-cover opacity-25 pointer-events-none size-full" src="assets/SeatCount/d704f.png" />
+              </div>
+              <div className="-translate-x-1/2 absolute h-[161px] left-[calc(50%+90px)] mix-blend-hard-light top-[-18.99px] w-[181px]" data-node-id="59:13923" data-name="image 3">
+                <img alt="" className="absolute inset-0 max-w-none object-cover opacity-25 pointer-events-none size-full" src="assets/SeatCount/d704f.png" />
+              </div>
+            </div>
+            <div className="content-stretch flex flex-[1_0_0] flex-col gap-[12px] items-start min-w-px relative" data-node-id="59:13924">
+              <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[1.3] not-italic relative shrink-0 text-[16px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="59:13925">
+                Movie plans with the gang?
+              </p>
+              <div className="bg-[var(--brand\/red,#f5405c)] content-stretch drop-shadow-[0px_3.336px_3.336px_rgba(0,0,0,0.1)] flex h-[32px] items-center justify-center relative rounded-[6.672px] shrink-0 w-full cursor-pointer" data-node-id="59:13936" data-name="Book with friends" onClick={() => go("bwfIntro")}>
+                <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.2] relative shrink-0 text-[15.012px] text-[color:var(--surface\/white,white)] whitespace-nowrap" data-node-id="I59:13936;1:26" style={{ fontVariationSettings: '"wdth" 100' }}>
+                  Book with friends
+                </p>
+              </div>
+            </div>
+            <div className="h-[65px] relative shrink-0 w-[120px]" data-node-id="59:13930">
+              <div className="absolute h-[86px] left-[-15px] top-[-10px] w-[158px]" data-node-id="59:13931" data-name="image 4">
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  <img alt="" className="absolute h-[123.62%] left-[-0.11%] max-w-none top-[-0.65%] w-[100.21%]" src="assets/SeatCount/b5289.png" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="content-stretch flex flex-col items-start pl-[16.68px] pr-[218.32px] pt-[25.02px] relative shrink-0 w-full" data-node-id="37:9989" data-name="How many seats? flow">
           <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.18] relative shrink-0 text-[20.016px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:9990" style={{ fontVariationSettings: '"wdth" 100' }}>
@@ -223,29 +253,11 @@ function HowManySeats({ go, back }) {
             </div>
           </div>
         </div>
-        <div className="bg-white content-stretch flex flex-col gap-[12px] items-start pb-[42px] pl-[16.68px] pr-[16.027px] pt-[12px] relative shrink-0 w-full" data-node-id="37:10033" data-name="Select seats flow">
-          <div className="bg-[var(--brand\/red,#f5405c)] content-stretch drop-shadow-[0px_3.336px_3.336px_rgba(0,0,0,0.1)] flex h-[40.033px] items-center justify-center relative rounded-[6.672px] shrink-0 w-full cursor-pointer" data-node-id="37:10034" data-name="Select seats" onClick={() => go("soloSeats")}>
-            <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.2] relative shrink-0 text-[15.012px] text-[color:var(--surface\/white,white)] whitespace-nowrap" data-node-id="I37:10034;1:26" style={{ fontVariationSettings: '"wdth" 100' }}>
+        <div className="bg-white content-stretch flex flex-col items-start pb-[42px] pl-[16.68px] pr-[16.027px] pt-[12px] relative shrink-0 w-full" data-node-id="37:10033" data-name="Select seats flow">
+          <div className="bg-[var(--surface\/white,white)] border border-[var(--brand\/red,#f5405c)] border-solid content-stretch drop-shadow-[0px_3.336px_3.336px_rgba(0,0,0,0.1)] flex h-[40.033px] items-center justify-center relative rounded-[6.672px] shrink-0 w-full cursor-pointer" data-node-id="37:10034" data-name="Select seats" onClick={() => go("soloSeats")}>
+            <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.2] relative shrink-0 text-[15.012px] text-[color:var(--brand\/red,#f5405c)] whitespace-nowrap" data-node-id="I37:10034;1:26" style={{ fontVariationSettings: '"wdth" 100' }}>
               Select seats
             </p>
-          </div>
-          <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col items-start overflow-clip py-[8px] relative rounded-[8.34px] shrink-0 w-full cursor-pointer" data-node-id="37:10035" data-name="Price breakdown" onClick={() => go("bwfIntro")}>
-            <div className="bg-[#d5f0ff] content-stretch flex gap-[16px] items-center overflow-clip pl-[16px] pr-[8px] py-[16px] relative rounded-[8.34px] shrink-0 w-full" data-node-id="37:10036">
-              <div className="-translate-x-1/2 absolute contents left-[calc(50%-0.65px)] top-[-18.99px]" data-node-id="37:10037">
-                <div className="-translate-x-1/2 absolute h-[161px] left-[calc(50%-91.15px)] mix-blend-hard-light top-[-18.99px] w-[180px]" data-node-id="37:10038" data-name="image 2">
-                  <img alt="" className="absolute inset-0 max-w-none object-cover opacity-25 pointer-events-none size-full" src={imgImage2} />
-                </div>
-                <div className="-translate-x-1/2 absolute h-[161px] left-[calc(50%+89.35px)] mix-blend-hard-light top-[-18.99px] w-[181px]" data-node-id="37:10039" data-name="image 3">
-                  <img alt="" className="absolute inset-0 max-w-none object-cover opacity-25 pointer-events-none size-full" src={imgImage2} />
-                </div>
-              </div>
-              <p className="[word-break:break-word] flex-[1_0_0] font-['Roboto'] font-semibold leading-[1.18] min-w-px relative text-[16.649px] text-[color:var(--text\/primary,#1a1a1a)]" data-node-id="37:10040" style={{ fontVariationSettings: '"wdth" 100' }}>
-                Book with Friends
-              </p>
-              <div className="relative shrink-0 size-[24px]" data-node-id="37:10041" data-name="chevron-right">
-                <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgChevronRight} />
-              </div>
-            </div>
           </div>
         </div>
       </div>

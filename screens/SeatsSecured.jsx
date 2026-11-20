@@ -71,7 +71,7 @@ function SeatsSecured({ go, back }) {
             <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgClock} />
           </div>
           <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[normal] relative shrink-0 text-[12px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="45:11139" style={{ fontVariationSettings: '"wdth" 100' }}>
-            {left} left before your hold expires
+            {left} left on your secured seats
           </p>
         </div>
       </div>

@@ -21,9 +21,10 @@ const seatIds = (seats, codes) =>
 // Opened directly, it falls back to the Figma group state (you: D06, D07; friends: D08–D10).
 function prebookContext() {
   const c = window.prebookContext || { mode: "group", seats: GROUP_SEATS };
+  const owners = c.owners || seatOwnersFor(c.seats);
   return c.mode === "solo"
-    ? { mode: "solo", mine: seatIds(c.seats, "f"), friends: [] }
-    : { mode: "group", mine: seatIds(c.seats, "y"), friends: seatIds(c.seats, "f") };
+    ? { mode: "solo", mine: seatIds(c.seats, "f"), friends: [], owners }
+    : { mode: "group", mine: seatIds(c.seats, "y"), friends: seatIds(c.seats, "f"), owners };
 }
 
 function PrebookSeats({ go, back }) {
@@ -33,9 +34,6 @@ function PrebookSeats({ go, back }) {
   const ticketTotal = priceOf(seats);
   const fee = ticketTotal * 0.1;
   const priceBreakdown = seats.map((id) => `${id} ${fmt(seatPrice(id))}`).join(" + ") + ` = ${fmt(ticketTotal)}`;
-  React.useEffect(() => {
-    window.prebookSelection = seats;
-  }, [scope]);
   return (
     <div className="bg-[var(--surface\/subtle,#f4f4f4)] content-stretch flex flex-col items-start relative size-full" data-node-id="37:10409" data-name="Confirm booking">
       <div className="content-stretch flex gap-[168.092px] items-start pl-[31.692px] pr-[32.707px] relative shrink-0 w-full" data-node-id="37:10410" data-name="Status bar">
@@ -105,7 +103,7 @@ function PrebookSeats({ go, back }) {
               <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgFrame7} />
             </div>
             <p className="[word-break:break-word] flex-[1_0_0] font-['Roboto'] font-normal leading-[1.18] min-w-px relative text-[11.654px] text-[color:var(--text\/primary,#1a1a1a)]" data-node-id="37:10536" style={{ fontVariationSettings: '"wdth" 100' }}>
-              Your seats will be held for 2 hours after you pay.
+              Your seats will be secured for 2 hours after you pay.
             </p>
           </div>
           <div className="content-stretch flex gap-[12px] items-center justify-center px-[16px] relative shrink-0 w-full" data-node-id="37:10537">
@@ -125,7 +123,7 @@ function PrebookSeats({ go, back }) {
               </div>
             </div>
             <p className="[word-break:break-word] flex-[1_0_0] font-['Roboto'] font-normal leading-[1.18] min-w-px relative text-[11.654px] text-[color:var(--text\/primary,#1a1a1a)]" data-node-id="37:10551" style={{ fontVariationSettings: '"wdth" 100' }}>
-              Pay the remaining 90% before the hold expires, or the seats will be released.
+              Pay the remaining 90% within 2 hours, or the secured seats will be released.
             </p>
           </div>
           <div className="content-stretch flex gap-[12px] items-center justify-center px-[16px] relative shrink-0 w-full" data-node-id="37:10565">
@@ -135,7 +133,7 @@ function PrebookSeats({ go, back }) {
               </div>
             </div>
             <p className="[word-break:break-word] flex-[1_0_0] font-['Roboto'] font-normal leading-[1.18] min-w-px relative text-[11.654px] text-[color:var(--text\/primary,#1a1a1a)]" data-node-id="37:10568" style={{ fontVariationSettings: '"wdth" 100' }}>
-              Swap seats for other available ones of equal value during the hold.
+              Swap your secured seats for other available ones of equal value.
             </p>
           </div>
         </div>
@@ -249,7 +247,13 @@ function PrebookSeats({ go, back }) {
               </div>
             </div>
             <div className="content-stretch flex flex-col items-start pb-[2.652px] relative shrink-0 w-[175.143px]" data-node-id="37:10511" data-name="Continue alignment">
-              <div className="bg-[var(--brand\/red,#f5405c)] content-stretch flex h-[40.033px] items-center justify-center relative rounded-[6.672px] shrink-0 w-[175.143px] cursor-pointer" data-node-id="37:10512" data-name="Continue" onClick={() => (seats.length ? go("secured") : toast("Pick seats to prebook first"))}>
+              <div className="bg-[var(--brand\/red,#f5405c)] content-stretch flex h-[40.033px] items-center justify-center relative rounded-[6.672px] shrink-0 w-[175.143px] cursor-pointer" data-node-id="37:10512" data-name="Continue" onClick={() => {
+                  if (!seats.length) return toast("Pick seats to prebook first");
+                  // Hand the secured seats and who picked each one to View Prebooking.
+                  window.prebookSelection = seats;
+                  window.prebookOwners = Object.fromEntries(seats.map((id) => [id, ctx.owners[id] || myInitial()]));
+                  go("secured");
+                }}>
                 <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.2] relative shrink-0 text-[13.344px] text-[color:var(--surface\/white,white)] whitespace-nowrap" data-node-id="I37:10512;1:26" style={{ fontVariationSettings: '"wdth" 100' }}>
                   Continue
                 </p>

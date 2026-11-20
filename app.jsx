@@ -18,6 +18,8 @@ const ROUTES = {
   booked: ["SeatsBooked", "45:13088", 393, 852],
   viewPrebookingPaid: ["ViewPrebookingPaid", "45:11903", 390, 852],
   paidSheet: ["PaidMemberSheet", "45:12365", 393, 851],
+  setAutopay: ["SetAutopay", "61:16464", 390, 852],
+  autopayDone: ["AutopayDone", "61:15487", 390, 852],
   ticket: ["Ticket", "29:116", 393, 852],
   ticketExpanded: ["TicketExpanded", "45:11754", 393, 852],
 };
@@ -43,7 +45,18 @@ const PARENT = {
   paidSheet: "viewPrebookingPaid",
   ticket: "viewPrebookingPaid",
   ticketExpanded: "ticket",
+  setAutopay: "viewPrebooking",
+  autopayDone: "setAutopay",
 };
+
+// Bottom sheets: shown over the screen they were opened from, dimmed by a 60% black overlay.
+const MODALS = new Set(["prebookIntro", "seatCount", "bwfIntro", "groupInvite", "memberSheet", "paidSheet", "setAutopay", "autopayDone"]);
+function baseScreenOf(stack) {
+  for (let i = stack.length - 1; i >= 0; i--) if (!MODALS.has(stack[i])) return stack[i];
+  let k = stack[0];
+  while (k && MODALS.has(k)) k = PARENT[k]; // opened directly: use its parent in the flow
+  return k || "nowShowing";
+}
 
 function App() {
   const initial = (location.hash || "").slice(1);
@@ -70,7 +83,11 @@ function App() {
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
 
-  const [name, , w, h] = ROUTES[current];
+  const isModal = MODALS.has(current);
+  const base = isModal ? baseScreenOf(stack) : current;
+  const [baseName, , w, h] = ROUTES[base];
+  const BaseScreen = window.Screens[baseName];
+  const [name] = ROUTES[current];
   const Screen = window.Screens[name];
 
   return (
@@ -81,7 +98,13 @@ function App() {
         ))}
       </select>
       <div className="device" style={{ width: w, height: h }}>
-        {Screen ? <Screen key={current} go={go} back={back} /> : <div className="p-6">Missing screen: {name}</div>}
+        {/* The base screen keeps the same key while a sheet is open, so its state survives. */}
+        {BaseScreen ? <BaseScreen key={base} go={go} back={back} /> : <div className="p-6">Missing screen: {baseName}</div>}
+        {isModal && Screen && (
+          <div className="absolute inset-0" style={{ zIndex: 40 }}>
+            <Screen key={current} go={go} back={back} bare />
+          </div>
+        )}
         <Toast />
       </div>
     </>

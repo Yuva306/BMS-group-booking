@@ -29,7 +29,7 @@ function SeatsBooked({ go, back }) {
               <img alt="" className="absolute block inset-0 max-w-none size-full" src={imgClock} />
             </div>
             <div className="[word-break:break-word] font-['Roboto'] font-medium leading-[0] relative shrink-0 text-[0px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="45:13125" style={{ fontVariationSettings: '"wdth" 100' }}>
-              <p className="leading-[normal] mb-0 text-[12px]">{left} left before your hold expires</p>
+              <p className="leading-[normal] mb-0 text-[12px]">{left} left on your secured seats</p>
               <p className="font-['Inter'] font-normal leading-[1.4] not-italic text-[12px]">{seatsWord(remaining.length)} still to be booked.</p>
             </div>
           </div>

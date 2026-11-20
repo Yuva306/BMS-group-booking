@@ -4,11 +4,13 @@ const imgImage4 = "assets/MemberSheet/b5289.png";
 const imgImage2 = "assets/MemberSheet/d704f.png";
 const imgShare07 = "assets/MemberSheet/2d122.svg";
 
-function MemberSheet({ back }) {
+function MemberSheet({ back, bare }) {
+  const sim = useGroupSim();
+  const has = (name) => GROUP_FRIENDS.slice(0, sim.joined).includes(name);
   const joined = window.joinedAs === "Rishi"; // joined with a code: you are Rishi, Yuva is the host
   return (
-    <div className="relative size-full" data-node-id="37:8547">
-      <GroupSeatsBody seats={getGroupSeats()} proceedLabel={countSeats(getGroupSeats(), "y") ? `Proceed booking ${countSeats(getGroupSeats(), "y")} seat${countSeats(getGroupSeats(), "y") === 1 ? "" : "s"}` : "Proceed booking"} proceedDisabled={!countSeats(getGroupSeats(), "y")} />
+    <div className="relative size-full" data-node-id="37:8547" style={bare ? { background: "transparent" } : undefined}>
+      {!bare && <GroupSeatsBody seats={getGroupSeats()} owners={getGroupOwners()} proceedLabel={countSeats(getGroupSeats(), "y") ? `Proceed booking ${countSeats(getGroupSeats(), "y")} seat${countSeats(getGroupSeats(), "y") === 1 ? "" : "s"}` : "Proceed booking"} proceedDisabled={!countSeats(getGroupSeats(), "y")} />}
       <div className="-translate-x-1/2 -translate-y-1/2 absolute bg-[rgba(0,0,0,0.6)] h-[851px] left-[calc(50%-0.5px)] top-[calc(50%-0.68px)] w-[392px] cursor-pointer" data-node-id="37:8854" onClick={back} />
       <div className="absolute left-0 top-[100.408px] w-[393px] h-[751.352px]">
         <div className="bg-[var(--surface\/white,white)] content-stretch flex flex-col gap-[16px] items-center overflow-clip pb-[48px] pt-[6.672px] px-[16px] relative rounded-tl-[16.68px] rounded-tr-[16.68px] size-full" data-node-id="37:8822" data-name="Seat count sheet">
@@ -78,61 +80,69 @@ function MemberSheet({ back }) {
                 </div>
               </div>
             </div>
-            <div className="border-[var(--border\/default,#dcdcdc)] border-b border-solid content-stretch flex gap-[4px] items-center px-[8px] py-[12px] relative shrink-0 w-full" data-node-id="37:10247">
-              <div className="content-stretch flex items-center relative shrink-0" data-node-id="37:10248">
-                <div className="bg-[var(--status\/blue-bg,#e8f0fe)] border border-[var(--border\/default,#dcdcdc)] border-solid content-stretch flex flex-col items-center justify-center p-[6px] relative rounded-[999px] shrink-0 size-[32px]" data-node-id="37:10249">
-                  <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[1.3] not-italic relative shrink-0 text-[16px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" data-node-id="37:10250">
-                    S
-                  </p>
-                </div>
-              </div>
-              <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:10251">
-                Shwas
-              </p>
-            </div>
-            <div className="border-[var(--border\/default,#dcdcdc)] border-b border-solid content-stretch flex gap-[4px] items-center px-[8px] py-[12px] relative shrink-0 w-full" data-node-id="37:10262">
-              <div className="content-stretch flex items-center relative shrink-0" data-node-id="37:10263">
-                <div className="bg-[var(--status\/blue-bg,#e8f0fe)] border border-[var(--border\/default,#dcdcdc)] border-solid content-stretch flex flex-col items-center justify-center p-[6px] relative rounded-[999px] shrink-0 size-[32px]" data-node-id="37:10264">
-                  <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[1.3] not-italic relative shrink-0 text-[16px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" data-node-id="37:10265">
-                    A
-                  </p>
-                </div>
-              </div>
-              <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:10266">
-                Aadi
-              </p>
-            </div>
-            <div className="border-[var(--border\/default,#dcdcdc)] border-b border-solid content-stretch flex gap-[4px] items-center px-[8px] py-[12px] relative shrink-0 w-full" data-node-id="37:10268">
-              <div className="content-stretch flex items-center relative shrink-0" data-node-id="37:10269">
-                <div className="bg-[var(--status\/blue-bg,#e8f0fe)] border border-[var(--border\/default,#dcdcdc)] border-solid content-stretch flex flex-col items-center justify-center p-[6px] relative rounded-[999px] shrink-0 size-[32px]" data-node-id="37:10270">
-                  <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[1.3] not-italic relative shrink-0 text-[16px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" data-node-id="37:10271">
-                    R
-                  </p>
-                </div>
-              </div>
-              {joined ? (
-                <div className="content-stretch flex flex-col items-start relative shrink-0 w-[140px]">
-                  <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:10272">Rishi</p>
-                  <div className="content-stretch flex flex-col items-start pr-[18px] pt-[1.644px] relative shrink-0 w-full">
-                    <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.654px] text-[color:var(--text\/secondary,#6b6b6b)] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>You</p>
+            {has("Shwas") && (
+              <div className="border-[var(--border\/default,#dcdcdc)] border-b border-solid content-stretch flex gap-[4px] items-center px-[8px] py-[12px] relative shrink-0 w-full" data-node-id="37:10247">
+                <div className="content-stretch flex items-center relative shrink-0" data-node-id="37:10248">
+                  <div className="bg-[var(--status\/blue-bg,#e8f0fe)] border border-[var(--border\/default,#dcdcdc)] border-solid content-stretch flex flex-col items-center justify-center p-[6px] relative rounded-[999px] shrink-0 size-[32px]" data-node-id="37:10249">
+                    <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[1.3] not-italic relative shrink-0 text-[16px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" data-node-id="37:10250">
+                      S
+                    </p>
                   </div>
                 </div>
-              ) : (
-                <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:10272">Rishi</p>
-              )}
-            </div>
-            <div className="content-stretch flex gap-[4px] items-center px-[8px] py-[12px] relative shrink-0 w-full" data-node-id="37:10274">
-              <div className="content-stretch flex items-center relative shrink-0" data-node-id="37:10275">
-                <div className="bg-[var(--status\/blue-bg,#e8f0fe)] border border-[var(--border\/default,#dcdcdc)] border-solid content-stretch flex flex-col items-center justify-center p-[6px] relative rounded-[999px] shrink-0 size-[32px]" data-node-id="37:10276">
-                  <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[1.3] not-italic relative shrink-0 text-[16px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" data-node-id="37:10277">
-                    P
-                  </p>
-                </div>
+                <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:10251">
+                  Shwas
+                </p>
               </div>
-              <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:10278">
-                Pranjal
-              </p>
-            </div>
+            )}
+            {has("Aadi") && (
+              <div className="border-[var(--border\/default,#dcdcdc)] border-b border-solid content-stretch flex gap-[4px] items-center px-[8px] py-[12px] relative shrink-0 w-full" data-node-id="37:10262">
+                <div className="content-stretch flex items-center relative shrink-0" data-node-id="37:10263">
+                  <div className="bg-[var(--status\/blue-bg,#e8f0fe)] border border-[var(--border\/default,#dcdcdc)] border-solid content-stretch flex flex-col items-center justify-center p-[6px] relative rounded-[999px] shrink-0 size-[32px]" data-node-id="37:10264">
+                    <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[1.3] not-italic relative shrink-0 text-[16px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" data-node-id="37:10265">
+                      A
+                    </p>
+                  </div>
+                </div>
+                <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:10266">
+                  Aadi
+                </p>
+              </div>
+            )}
+            {has("Rishi") && (
+              <div className="border-[var(--border\/default,#dcdcdc)] border-b border-solid content-stretch flex gap-[4px] items-center px-[8px] py-[12px] relative shrink-0 w-full" data-node-id="37:10268">
+                <div className="content-stretch flex items-center relative shrink-0" data-node-id="37:10269">
+                  <div className="bg-[var(--status\/blue-bg,#e8f0fe)] border border-[var(--border\/default,#dcdcdc)] border-solid content-stretch flex flex-col items-center justify-center p-[6px] relative rounded-[999px] shrink-0 size-[32px]" data-node-id="37:10270">
+                    <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[1.3] not-italic relative shrink-0 text-[16px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" data-node-id="37:10271">
+                      R
+                    </p>
+                  </div>
+                </div>
+                {joined ? (
+                  <div className="content-stretch flex flex-col items-start relative shrink-0 w-[140px]">
+                    <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:10272">Rishi</p>
+                    <div className="content-stretch flex flex-col items-start pr-[18px] pt-[1.644px] relative shrink-0 w-full">
+                      <p className="[word-break:break-word] font-['Roboto'] font-normal leading-[1.18] relative shrink-0 text-[11.654px] text-[color:var(--text\/secondary,#6b6b6b)] w-full" style={{ fontVariationSettings: '"wdth" 100' }}>You</p>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:10272">Rishi</p>
+                )}
+              </div>
+            )}
+            {has("Pranjal") && (
+              <div className="content-stretch flex gap-[4px] items-center px-[8px] py-[12px] relative shrink-0 w-full" data-node-id="37:10274">
+                <div className="content-stretch flex items-center relative shrink-0" data-node-id="37:10275">
+                  <div className="bg-[var(--status\/blue-bg,#e8f0fe)] border border-[var(--border\/default,#dcdcdc)] border-solid content-stretch flex flex-col items-center justify-center p-[6px] relative rounded-[999px] shrink-0 size-[32px]" data-node-id="37:10276">
+                    <p className="[word-break:break-word] font-['Inter'] font-semibold leading-[1.3] not-italic relative shrink-0 text-[16px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" data-node-id="37:10277">
+                      P
+                    </p>
+                  </div>
+                </div>
+                <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[14px] text-[color:var(--text\/primary,#1a1a1a)] whitespace-nowrap" data-node-id="37:10278">
+                  Pranjal
+                </p>
+              </div>
+            )}
           </div>
           <div className="border border-[var(--brand\/red,#f5405c)] border-solid content-stretch flex h-[40.033px] items-center justify-center px-[12px] relative rounded-[6.672px] shrink-0 w-full cursor-pointer" data-node-id="50:13813" data-name="Select seats" onClick={() => toast("Reminder to choose seats sent to Shwas, Aadi, Rishi and Pranjal")}>
             <p className="[word-break:break-word] font-['Roboto'] font-medium leading-[1.2] relative shrink-0 text-[15.012px] text-[color:var(--brand\/red,#f5405c)] whitespace-nowrap" data-node-id="I50:13813;1:26" style={{ fontVariationSettings: '"wdth" 100' }}>
