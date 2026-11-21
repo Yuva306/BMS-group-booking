@@ -67,14 +67,17 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
     } else go("setAutopay");
   };
   // Repick mode: tap a held (green) seat to release it, then an available seat of the same
-  // price tier to take its place. Other tiers are greyed out like sold seats.
-  const [repick, setRepick] = React.useState(null); // { start: seats, released: number } while repicking
+  // price tier to take its place. Tiers you hold no seats in are greyed out like sold seats; once a
+  // seat is released, only its tier stays open until the swap is done.
+  const [repick, setRepick] = React.useState(null); // { start, released, tier, pool } while repicking
   const tierOf = (row) => ("ABC".includes(row) ? "royal" : "exec");
+  const TIER_NAME = { royal: "Royal", exec: "Executive" };
   const heldTiers = new Set(
     Object.entries(repick ? repick.start : seats).filter(([, st]) => /[fyr]/.test(st)).map(([row]) => tierOf(row))
   );
+  const openTiers = repick && repick.tier ? new Set([repick.tier]) : heldTiers;
   const displaySeats = repick
-    ? Object.fromEntries(Object.entries(seats).map(([row, st]) => [row, heldTiers.has(tierOf(row)) ? st : st.replace(/a/g, "s")]))
+    ? Object.fromEntries(Object.entries(seats).map(([row, st]) => [row, openTiers.has(tierOf(row)) ? st : st.replace(/a/g, "s")]))
     : seats;
   const startRepick = () => {
     const reset = Object.fromEntries(Object.entries(seats).map(([row, st]) => [row, st.replace(/y/g, "f")]));
@@ -90,17 +93,20 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
   const onSeat = (id, state) => {
     if (repick) {
       if (state === "f") {
+        if (repick.tier && tierOf(id[0]) !== repick.tier)
+          return toast(`Finish swapping your ${TIER_NAME[repick.tier]} seat first`);
         const owner = vpSaved.owners[id];
         delete vpSaved.owners[id];
         setSeats((x) => setSeat(x, id, "a"));
-        setRepick((r) => ({ ...r, released: r.released + 1, pool: [...(r.pool || []), owner] }));
-      } else if (state === "a" && heldTiers.has(tierOf(id[0]))) {
+        setRepick((r) => ({ ...r, released: r.released + 1, tier: tierOf(id[0]), pool: [...(r.pool || []), owner] }));
+      } else if (state === "a" && openTiers.has(tierOf(id[0]))) {
         if (!repick.released) return toast("Release one of your green seats first");
         const pool = [...(repick.pool || [])];
         vpSaved.owners[id] = pool.pop() || myInitial();
         setSeats((x) => setSeat(x, id, "f"));
-        setRepick((r) => ({ ...r, released: r.released - 1, pool }));
-      } else if (state === "r") toast("Booked seats cannot be repicked");
+        setRepick((r) => ({ ...r, released: r.released - 1, tier: r.released > 1 ? r.tier : null, pool }));
+      } else if (state === "a" && repick.tier) toast(`Swap for another ${TIER_NAME[repick.tier]} seat`);
+      else if (state === "r") toast("Booked seats cannot be repicked");
       else toast("You can only swap for a seat in the same row category");
       return;
     }
@@ -110,6 +116,20 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
     else if (state === "s") toast("This seat is unavailable");
     else toast("Only your secured seats can be paid for here. Use Repick Seats to change them");
   };
+  // Drop Seats sheet (Figma 76:18595) reads the current seats and calls back to release some.
+  const drop = (ids) => {
+    const release = (st) => ids.reduce((x, id) => setSeat(x, id, "a"), st);
+    for (const id of ids) delete vpSaved.owners[id];
+    for (const k of ["base", "selected", "paid"]) if (vpSaved[k] && k !== variant) vpSaved[k] = release(vpSaved[k]);
+    if (window.lastHeld) vpSaved.paidHeld = window.lastHeld = release(window.lastHeld);
+    const next = release(seats);
+    setSeats(() => next);
+    if (countSeats(next, "fyr") === 0) {
+      toast("Prebooking cancelled");
+      go("nowShowing");
+    } else toast(`${seatsWord(ids.length)} dropped`);
+  };
+  window.vpCurrent = { seats, owners: vpSaved.owners, drop };
   const heldList = Object.entries(seats).flatMap(([row, st]) =>
     st.split("").map((c, i) => (/[fyr]/.test(c) ? row + String(i + 1).padStart(2, "0") : null)).filter(Boolean)
   );
@@ -290,6 +310,21 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
               </p>
             </div>
           )}
+        </div>
+        {/* Drop Seats - Figma 76:18311 */}
+        <div className="content-stretch flex gap-[4px] items-center justify-center relative shrink-0 w-full" data-node-id="76:18311">
+          <div className="content-stretch flex gap-[4px] items-center relative shrink-0 cursor-pointer" onClick={() => {
+            if (repick) return toast("Confirm your seats first");
+            if (!countSeats(seats, "fy")) return toast("No secured seats left to drop");
+            go("dropSeats");
+          }}>
+            <div className="relative shrink-0 size-[16px]" data-node-id="76:18313" data-name="x-close">
+              <img alt="" className="absolute block inset-0 max-w-none size-full" src="assets/DropSeats/x-close.svg" />
+            </div>
+            <p className="[word-break:break-word] font-['Inter'] font-normal leading-[1.4] not-italic relative shrink-0 text-[12px] text-[color:var(--text\/secondary,#6b6b6b)] whitespace-nowrap" data-node-id="76:18312">
+              Drop Seats
+            </p>
+          </div>
         </div>
       </div>
       )}

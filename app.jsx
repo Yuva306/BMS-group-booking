@@ -20,6 +20,7 @@ const ROUTES = {
   paidSheet: ["PaidMemberSheet", "45:12365", 393, 851],
   setAutopay: ["SetAutopay", "61:16464", 390, 852],
   autopayDone: ["AutopayDone", "61:15487", 390, 852],
+  dropSeats: ["DropSeats", "76:18595", 393, 851],
   ticket: ["Ticket", "29:116", 393, 852],
   ticketExpanded: ["TicketExpanded", "45:11754", 393, 852],
 };
@@ -47,10 +48,11 @@ const PARENT = {
   ticketExpanded: "ticket",
   setAutopay: "viewPrebooking",
   autopayDone: "setAutopay",
+  dropSeats: "viewPrebooking",
 };
 
 // Bottom sheets: shown over the screen they were opened from, dimmed by a 60% black overlay.
-const MODALS = new Set(["prebookIntro", "seatCount", "bwfIntro", "groupInvite", "memberSheet", "paidSheet", "setAutopay", "autopayDone"]);
+const MODALS = new Set(["prebookIntro", "seatCount", "bwfIntro", "groupInvite", "memberSheet", "paidSheet", "setAutopay", "autopayDone", "dropSeats"]);
 function baseScreenOf(stack) {
   for (let i = stack.length - 1; i >= 0; i--) if (!MODALS.has(stack[i])) return stack[i];
   let k = stack[0];

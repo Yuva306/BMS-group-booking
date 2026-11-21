@@ -139,7 +139,7 @@ function SeatRows({ seats, colors, onSeat, owners = seatOwnersFor(seats) }) {
   );
 }
 
-function CinemaScreen() {
+function CinemaScreen({ caption = true }) {
   return (
     <div className="content-stretch flex flex-col items-start relative shrink-0 w-full max-w-[393px] mx-auto">
       <div className="content-stretch flex flex-col items-start pl-[11.654px] pr-[11.738px] pt-[31.633px] relative shrink-0 w-full" data-name="Cinema screen flow">
@@ -151,11 +151,13 @@ function CinemaScreen() {
           </div>
         </div>
       </div>
+      {caption && (
       <div className="content-stretch flex flex-col items-start pl-[71.591px] pr-[70.009px] pt-[3.33px] relative shrink-0 w-full">
         <p className="[word-break:break-word] font-['Roboto'] font-bold leading-[1.18] relative shrink-0 text-[14.984px] text-[color:var(--text\/primary,#1a1a1a)] text-center w-full" style={{ fontVariationSettings: '"wdth" 100' }}>
           All eyes this way please!
         </p>
       </div>
+      )}
     </div>
   );
 }
