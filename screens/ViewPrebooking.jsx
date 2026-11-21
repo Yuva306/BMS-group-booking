@@ -51,7 +51,7 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
     return (vpSaved.paid = st);
   };
   const [seats, setSeatsState] = React.useState(() => (variant === "paid" ? paidStart() : vpSaved[variant]));
-  const stillToBook = `${seatsWord(countSeats(seats, "fy"))} still to be booked.`;
+  const stillToBook = `${seatsWord(countSeats(seats, "fyo"))} still to be booked.`;
   React.useEffect(() => {
     if (variant !== "paid") window.lastHeld = Object.fromEntries(Object.entries(seats).map(([r, st]) => [r, st.replace(/y/g, "f")]));
   }, [seats]);
@@ -92,19 +92,26 @@ function ViewPrebookingBase({ variant, nodeId, go, back }) {
   };
   const onSeat = (id, state) => {
     if (repick) {
+      // Released seats stay as a hollow dotted circle (state "o") with the owner's initial until
+      // a replacement is picked; tapping one again takes it back.
+      const pool = repick.pool || []; // [{ id, owner }] of released seats, oldest first
+      const doneWith = (rest) => ({ released: rest.length, pool: rest, tier: rest.length ? repick.tier : null });
       if (state === "f") {
         if (repick.tier && tierOf(id[0]) !== repick.tier)
           return toast(`Finish swapping your ${TIER_NAME[repick.tier]} seat first`);
-        const owner = vpSaved.owners[id];
-        delete vpSaved.owners[id];
-        setSeats((x) => setSeat(x, id, "a"));
-        setRepick((r) => ({ ...r, released: r.released + 1, tier: tierOf(id[0]), pool: [...(r.pool || []), owner] }));
+        setSeats((x) => setSeat(x, id, "o"));
+        setRepick((r) => ({ ...r, released: r.released + 1, tier: tierOf(id[0]), pool: [...pool, { id, owner: vpSaved.owners[id] }] }));
+      } else if (state === "o") {
+        setSeats((x) => setSeat(x, id, "f"));
+        setRepick((r) => ({ ...r, ...doneWith(pool.filter((p) => p.id !== id)) }));
       } else if (state === "a" && openTiers.has(tierOf(id[0]))) {
         if (!repick.released) return toast("Release one of your green seats first");
-        const pool = [...(repick.pool || [])];
-        vpSaved.owners[id] = pool.pop() || myInitial();
-        setSeats((x) => setSeat(x, id, "f"));
-        setRepick((r) => ({ ...r, released: r.released - 1, tier: r.released > 1 ? r.tier : null, pool }));
+        const rest = [...pool];
+        const freed = rest.pop();
+        vpSaved.owners[id] = freed.owner || myInitial();
+        delete vpSaved.owners[freed.id];
+        setSeats((x) => setSeat(setSeat(x, freed.id, "a"), id, "f"));
+        setRepick((r) => ({ ...r, ...doneWith(rest) }));
       } else if (state === "a" && repick.tier) toast(`Swap for another ${TIER_NAME[repick.tier]} seat`);
       else if (state === "r") toast("Booked seats cannot be repicked");
       else toast("You can only swap for a seat in the same row category");

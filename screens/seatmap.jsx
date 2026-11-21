@@ -1,7 +1,7 @@
 (() => {
 // Shared seat grid, reproducing the Figma "Seat map" markup (e.g. node 37:9827).
 // Seat state codes: a = available, s = sold, y = selected by you (blue),
-// f = selected by friends (green), x = accessible (wheelchair icon).
+// f = selected by friends (green), x = accessible (wheelchair icon), o = released while repicking.
 const SM = {
   imgGroup: "assets/seatmap/6cbf9.svg",
   imgGroup1: "assets/seatmap/d7496.svg",
@@ -62,6 +62,18 @@ function Seat({ id, num, state, colors, onSeat, owner }) {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    );
+  }
+  // Released during repick: the owner's circle stays, hollow with a dotted outline.
+  if (state === "o") {
+    return (
+      <div className={`content-stretch flex flex-col items-start relative shrink-0 ${wrap}`}>
+        <div className={"border border-dotted border-[var(--status\\/green,#1d9a4c)] bg-transparent content-stretch flex items-center justify-center relative rounded-full shrink-0 size-[19.979px]" + (onSeat ? " cursor-pointer" : "")} data-name={`Seat ${id}`} onClick={onSeat ? () => onSeat(id, state) : undefined}>
+          <p className="[word-break:break-word] font-['Inter'] font-medium leading-[normal] not-italic relative shrink-0 text-[9.989px] text-[color:var(--status\/green,#1d9a4c)] whitespace-nowrap">
+            {owner || num}
+          </p>
         </div>
       </div>
     );
